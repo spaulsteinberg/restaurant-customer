@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.navigation-link {
+    color: $inactive-link-color;
+    display: block;
+    padding: .5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    border-radius: 10px;
+
+    &:active {
+        color: $active-link-color;
+    }
+    
+    &:hover {
+        background-color: orange;
+    }
+}

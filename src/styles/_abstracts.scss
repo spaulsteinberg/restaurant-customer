@@ -1,0 +1,5 @@
+@import './variables';
+
+@function resolution($size){
+    @return map-get($resolution-names, $size);
+}
