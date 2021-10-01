@@ -3,3 +3,15 @@
 @function resolution($size){
     @return map-get($resolution-names, $size);
 }
+
+@mixin create-flex-container($width){
+    flex: 0 0 $width;
+    -ms-flex: 0 0 $width;
+    width: $width;
+}
+
+@mixin flex-column{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
