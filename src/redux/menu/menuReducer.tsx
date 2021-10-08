@@ -1,7 +1,7 @@
-import { IMenu } from "../converters"
+import { IMenu } from "../../models/firebaseMenuResponse";
 import { GET_MENU, GET_MENU_ERROR, GET_MENU_SUCCESS } from "./menuTypes"
 
-interface IMenuState {
+export interface IMenuState {
     loading:boolean,
     data:IMenu|null,
     error:any

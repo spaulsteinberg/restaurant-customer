@@ -5,6 +5,12 @@
     margin: 2rem 0;
 }
 
+.error-alert {
+    text-align: center;
+    width: 95%;
+    margin: 4rem auto;
+}
+
 .item-container {
     @include flex-column;
     justify-content: space-around;
@@ -23,6 +29,8 @@
             @include create-flex-container(75%);
         }
     }
+
+    .error-alert {width: 75%;}
 }
 
 @media screen and (min-width: resolution("wide-mobile")){
@@ -41,6 +49,7 @@
             @include create-flex-container(45%);
         }
     }
+    .error-alert {width: 50%;}
 }
 
 @media screen and (min-width: resolution("laptop")){
@@ -50,4 +59,5 @@
             @include create-flex-container(30%);
         }
     }
+    .error-alert {width: 35%;}
 }

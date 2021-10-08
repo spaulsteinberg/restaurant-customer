@@ -1,21 +1,22 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'
+import { IItems } from '../../models/firebaseMenuResponse';
 import logo from './istockphoto-1157515115-612x612.jpg'
 
 type OrderItemProps = {
-
+    item:IItems;
 }
 
-const OrderItem = (props: OrderItemProps) => {
+const OrderItem = ({item}:OrderItemProps) => {
     return (
         <Card className="order-item">
             <Card.Img variant="top" src={logo} />
             <Card.Body className="text-dark">
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>{item.item}</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {item.description}
                 </Card.Text>
+                <p className="m-0">${item.price}</p>
             </Card.Body>
         </Card>
     )

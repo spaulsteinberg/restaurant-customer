@@ -1,5 +1,7 @@
+import firebase from 'firebase/compat/app';
 import { Dispatch } from "react"
 import { db } from "../../firebase/firebase"
+import { IMenu } from '../../models/firebaseMenuResponse';
 import { menuConverter } from "../converters"
 import { GET_MENU, GET_MENU_ERROR, GET_MENU_SUCCESS } from "./menuTypes"
 
@@ -31,7 +33,7 @@ export const getCurrentMenu = () => {
         .where("current", "==", true)
         .withConverter(menuConverter)
         .get() 
-        .then(response => {
+        .then((response:firebase.firestore.QuerySnapshot<IMenu>) => {
             if (response){
                 dispatch(getMenuSuccess(response.docs[0].data()))
             } else {
