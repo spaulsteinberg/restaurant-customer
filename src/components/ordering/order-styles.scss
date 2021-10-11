@@ -12,7 +12,7 @@
 }
 
 #menu-header-title {
-    font-size: 5rem;
+    font-size: 2rem;
     font-weight: 400;
     margin: 0;
 }
@@ -22,9 +22,8 @@
     justify-content: space-around;
     padding: 1rem 1rem;
     .section-title {
-        @include centered;
         @include create-flex-container(100%);
-        font-size: 5rem;
+        font-size: 2rem;
         font-style: italic;
         font-weight: 300;
         margin-bottom: 1rem;
@@ -34,7 +33,7 @@
         .order-item {
             @include create-flex-container(100%);
             @include centered(1rem);
-            width: 18rem;
+            width: 10rem;
         }
     }
 }
@@ -55,34 +54,40 @@
 @media screen and (min-width: resolution("wide-mobile")){
 
     .item-container { 
+        .section-title { font-size: 2.5rem }
         .section-row {
             .order-item { 
                 @include create-flex-container(60%);
             }
         }
     }
+    #menu-header-title {font-size: 2.5rem;}
 }
 
 @media screen and (min-width: resolution("tablet")){
 
     .item-container { 
+        .section-title { font-size: 3rem }
         .section-row {
             .order-item { 
                 @include create-flex-container(45%);
             }
         }
     }
+    #menu-header-title {font-size: 3rem;}
     .error-alert {width: 50%;}
 }
 
 @media screen and (min-width: resolution("laptop")){
 
     .item-container { 
+        .section-title { font-size: 5rem }
         .section-row {
             .order-item { 
                 @include create-flex-container(30%);
             }
         }
     }
+    #menu-header-title {font-size: 5rem;}
     .error-alert {width: 35%;}
 }

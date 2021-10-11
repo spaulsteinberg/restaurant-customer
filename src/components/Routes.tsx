@@ -1,6 +1,6 @@
-import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import About from './about/About'
+import ViewCart from './cart/ViewCart'
 import Home from './home/Home'
 import OrderPage from './ordering/OrderPage'
 import PageNotFound from './utility/PageNotFound'
@@ -12,6 +12,7 @@ const Routes = () => {
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/ordering" component={OrderPage} />
+            <Route path="/cart" component={ViewCart} />
             <Route path="*" component={PageNotFound} />
         </Switch>
     )

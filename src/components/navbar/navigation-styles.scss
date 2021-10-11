@@ -5,7 +5,7 @@
     display: block;
     padding: .5rem 1rem;
     color: #fff;
-    text-decoration: none;
+    text-decoration: $TEXT-NO-DEC;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
     border-radius: 10px;
 
@@ -16,4 +16,11 @@
     &:hover {
         background-color: orange;
     }
+}
+
+.cart-nav, .cart-count-sub, .nav-cart-container {
+    a {
+        text-decoration: $TEXT-NO-DEC !important;
+    }
+    text-decoration: $TEXT-NO-DEC
 }

@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {NavLink} from 'react-router-dom'
 import useWidth from '../../hooks/useWidth';
+import Cart from './navbar-cart/Cart';
 import './navigation-styles.scss';
 
 const NavigationBar:FC = () => {
@@ -20,6 +21,11 @@ const NavigationBar:FC = () => {
             <NavLink to="/home" className="navigation-link">Home</NavLink>
             <NavLink to="/about" className="navigation-link">About</NavLink>
             <NavLink to="/ordering" className="navigation-link">Order Now</NavLink>
+          </Nav>
+          <Nav className="cart-nav">
+            <NavLink to="/cart"> 
+              <Cart fill="lightgreen" height="24" width="24"/> 
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
