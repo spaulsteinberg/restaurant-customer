@@ -7,8 +7,8 @@ type OrderSectionProps = {
 
 const OrderSection = ({section}:OrderSectionProps) => {
     return (
-        <div>
-            <div>{section.menuName}</div>
+        <div className="section-row">
+            <div className="section-title">{section.menuName}</div>
             {section.items.map(item => <OrderItem key={item.item} item={item}/>)}
         </div>
     )

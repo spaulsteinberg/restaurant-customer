@@ -11,22 +11,41 @@
     margin: 4rem auto;
 }
 
+#menu-header-title {
+    font-size: 5rem;
+    font-weight: 400;
+    margin: 0;
+}
+
 .item-container {
     @include flex-column;
     justify-content: space-around;
     padding: 1rem 1rem;
-    .order-item {
-        margin: 1rem auto;
-        width: 18rem;
+    .section-title {
+        @include centered;
         @include create-flex-container(100%);
+        font-size: 5rem;
+        font-style: italic;
+        font-weight: 300;
+        margin-bottom: 1rem;
+    }
+    .section-row {
+        @include flex-row;
+        .order-item {
+            @include create-flex-container(100%);
+            @include centered(1rem);
+            width: 18rem;
+        }
     }
 }
 
 @media screen and (min-width: resolution("mobile")){
     .item-container {
         flex-direction: row;
-        .order-item {
-            @include create-flex-container(75%);
+        .section-row {
+            .order-item {
+                @include create-flex-container(75%);
+            }
         }
     }
 
@@ -36,8 +55,10 @@
 @media screen and (min-width: resolution("wide-mobile")){
 
     .item-container { 
-        .order-item { 
-            @include create-flex-container(60%);
+        .section-row {
+            .order-item { 
+                @include create-flex-container(60%);
+            }
         }
     }
 }
@@ -45,8 +66,10 @@
 @media screen and (min-width: resolution("tablet")){
 
     .item-container { 
-        .order-item { 
-            @include create-flex-container(45%);
+        .section-row {
+            .order-item { 
+                @include create-flex-container(45%);
+            }
         }
     }
     .error-alert {width: 50%;}
@@ -55,8 +78,10 @@
 @media screen and (min-width: resolution("laptop")){
 
     .item-container { 
-        .order-item { 
-            @include create-flex-container(30%);
+        .section-row {
+            .order-item { 
+                @include create-flex-container(30%);
+            }
         }
     }
     .error-alert {width: 35%;}

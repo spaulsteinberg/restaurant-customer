@@ -1,4 +1,3 @@
-import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -9,7 +8,7 @@ const OrderMenuTitle = ({title}:OrderMenuTitleProps) => {
     return (
         <Row className="order-header-wrapper">
             <Col md={12} className="p-0">
-                <h1>{title}</h1>
+                <h1 id="menu-header-title">{title}</h1>
             </Col>
         </Row>
     )
