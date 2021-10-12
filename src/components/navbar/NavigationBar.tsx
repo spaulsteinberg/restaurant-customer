@@ -2,14 +2,17 @@ import React, { FC } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useSelector } from 'react-redux';
 import {NavLink} from 'react-router-dom'
 import useWidth from '../../hooks/useWidth';
+import { RootState } from '../../redux/store';
 import Cart from './navbar-cart/Cart';
 import './navigation-styles.scss';
 
 const NavigationBar:FC = () => {
   const {wideView} = useWidth(400);
   const contextTitlePlaceholder = "Restaurant Name Here"
+  const cartItemCount = useSelector<RootState, number>(state => state.cart.count)
   return (
     <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
       <Container fluid>
@@ -24,7 +27,7 @@ const NavigationBar:FC = () => {
           </Nav>
           <Nav className="cart-nav">
             <NavLink to="/cart"> 
-              <Cart fill="lightgreen" height="24" width="24"/> 
+              <Cart fill="lightgreen" height="24" width="24" count={cartItemCount} /> 
             </NavLink>
           </Nav>
         </Navbar.Collapse>

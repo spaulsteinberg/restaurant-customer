@@ -1,0 +1,2 @@
+export const INC_CART_COUNT = "INC_CART_COUNT";
+export const DEC_CART_COUNT = "DEC_CART_COUNT";
