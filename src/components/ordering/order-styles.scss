@@ -34,9 +34,14 @@
             @include create-flex-container(100%);
             @include centered(1rem);
             width: 10rem;
+            color: $CARD-TEXT-COLOR;
             .button-container {
                 margin: .5rem auto 1rem auto;
                 width: 75%;
+            }
+            .expanded-container {
+                margin: .5rem auto 1rem auto;
+                width: 100%;
             }
         }
     }
