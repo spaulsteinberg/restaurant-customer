@@ -1,0 +1,21 @@
+@import '../../styles/abstracts';
+
+.view-cart-item-container {
+    @include flex-row;
+    justify-content: flex-start;
+    color: $CARD-TEXT-COLOR;
+    .view-cart-item {
+        @include create-flex-container(75%);
+    }
+}
+
+.total-large {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    width: 100%;
+}
+
+// override for card to be horizontal
+div.view-cart-item.card { flex-direction: row !important;}
