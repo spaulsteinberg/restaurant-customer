@@ -12,7 +12,7 @@ import './navigation-styles.scss';
 const NavigationBar:FC = () => {
   const {wideView} = useWidth(400);
   const contextTitlePlaceholder = "Restaurant Name Here"
-  const cartItemCount = useSelector<RootState, number>(state => state.cart.count)
+  const cartItemCount = useSelector<RootState, number>(state => state.cart['count'])
   return (
     <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
       <Container fluid>

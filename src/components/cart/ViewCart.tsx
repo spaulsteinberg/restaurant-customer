@@ -3,22 +3,17 @@ import { RootState } from "../../redux/store"
 import CartItem from "./CartItem"
 import './cart-styles.scss'
 import TotalFooter from "./TotalFooter"
+import { ICartState } from "../../redux/cart/cartReducer"
 
 type ViewCartProps = {}
 
 const ViewCart = (props:ViewCartProps) => {
-    const cart = useSelector<RootState, number>(state => state.cart.count)
-    const renderMockCart = () => {
-        let items = [];
-        for (let i = 0; i < cart; i++){
-            items.push(<CartItem key={i} />)
-        }
-        return items.map(i => i)
-    }
+    const cart = useSelector<RootState, ICartState>(state => state.cart)
     return (
         <div className="view-cart-item-container p-4">
-            {renderMockCart()}
-            <TotalFooter />
+            {cart.foodIds.map(id => <CartItem key={id} data={cart.order.food[id]} />)}
+            {cart.beverageIds.map(id => <CartItem key={id} data={cart.order.drink[id]} />)}
+            <TotalFooter total={cart.cartValue} />
         </div>
     )
 }

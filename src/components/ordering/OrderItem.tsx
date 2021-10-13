@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card'
 import { useDispatch } from 'react-redux';
+import { DRINK_TYPE } from '../../constants/keys';
 import { IItems } from '../../models/firebaseMenuResponse';
-import { decrementCartCount, incrementCartCount } from '../../redux/cart/cartActions';
+import { decrementCartCount, incrementCartCount, insertBeverage, insertFood } from '../../redux/cart/cartActions';
 import logo from './istockphoto-1157515115-612x612.jpg'
 import OrderItemButtons from './OrderItemButtons';
 import OrderItemInfoCard from './OrderItemCardInfo';
@@ -19,13 +20,15 @@ const OrderItem = ({item}:OrderItemProps) => {
     const [count, setCount] = useState<number>(1);
 
     const handleShowAddItemClick = () => {
-        dispatch(incrementCartCount())        
+        dispatch(incrementCartCount());
+        item.type === DRINK_TYPE ? dispatch(insertBeverage({name: item.item, data: item, quantity: 1})) : dispatch(insertFood({name: item.item, data: item, quantity: 1})) 
         setShowAddItem(false)
     }
 
     const handleIncrementClick = () => {
+        dispatch(incrementCartCount());
+        item.type === DRINK_TYPE ? dispatch(insertBeverage({name: item.item, data: item, quantity: count + 1})) : dispatch(insertFood({name: item.item, data: item, quantity: count + 1})) 
         setCount(prev => prev + 1);
-        dispatch(incrementCartCount())
     }
 
     const handleDecrementClick = () => {
