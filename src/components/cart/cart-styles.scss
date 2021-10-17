@@ -1,21 +1,68 @@
 @import '../../styles/abstracts';
 
 .view-cart-item-container {
-    @include flex-row;
-    justify-content: flex-start;
-    color: $CARD-TEXT-COLOR;
+    @include flex-column;
+    width: 100%;
+    justify-content: center;
     .view-cart-item {
-        @include create-flex-container(75%);
+        @include create-flex-container(100%);
     }
 }
 
+.view-cart-total-container {
+    @include flex-row;
+    @include centered;
+    width: 90%;
+}
+
+.cart-container {
+    @include flex-column;
+    padding: 1rem;
+    color: $CARD-TEXT-COLOR;
+    justify-content: space-between;
+}
+
 .total-large {
-    display: flex;
     justify-content: center;
+    align-content: flex-start;
     font-size: 1.5rem;
     font-weight: 400;
     width: 100%;
 }
 
-// override for card to be horizontal
-div.view-cart-item.card { flex-direction: row ;}
+.no-items-cart {
+    @include centered(1rem);
+    width: 75%;
+    max-width: 300px;
+}
+
+@media screen and (min-width: resolution("mobile")) {
+
+    .view-cart-item-container {
+        @include flex-row;
+        @include centered;
+        width: 80%;
+    }
+
+    .no-items-cart { width: 40%; }
+
+    .view-cart-total-container { width: 50%}
+}
+
+// switches to horizontal view here
+@media screen and (min-width: resolution("tablet")) {
+
+    .view-cart-item-container {
+        width: 65%;
+        justify-content: flex-start;
+        margin: 0
+    }
+
+    .no-items-cart { width: 30%; }
+
+    .cart-container {
+        @include flex-row;
+    }
+
+    .view-cart-total-container { margin: 0; width: 30%}
+}

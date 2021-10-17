@@ -7,10 +7,9 @@ type CartItemProps = {
 
 const CartItem = ({data}:CartItemProps) => {
     const {wideView} = useWidth(768);
-    // add in smaller column view
     return (
-        <Card className="view-cart-item mb-4">
-            <div style={{height: "200px", width: "200px", backgroundColor: "red"}}>img</div>
+        <Card className="view-cart-item mb-4 mr-4" style={{flexDirection: wideView ? "row" : "column"}}>
+            <div style={{height: "200px", width: "200px", backgroundColor: "gray"}}>img</div>
             <Card.Body>
                 <Card.Title>{data.item}</Card.Title>
                 <p>{data.description}</p>
