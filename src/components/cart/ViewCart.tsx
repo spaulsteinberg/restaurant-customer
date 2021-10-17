@@ -9,6 +9,7 @@ type ViewCartProps = {}
 
 const ViewCart = (props:ViewCartProps) => {
     const cart = useSelector<RootState, ICartState>(state => state.cart)
+
     return (
         <div className="cart-container">
             { cart.count > 0 ? <ShowCartItems cart={cart} /> : <NoCartItems /> }

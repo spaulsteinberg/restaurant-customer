@@ -4,7 +4,14 @@ import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+let preloadedState
+const persistedTodosString = localStorage.getItem('cart')
+preloadedState = persistedTodosString ? {cart: JSON.parse(persistedTodosString)} : {}
+
+
+const store = createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(thunk)));
+
+store.subscribe(() => localStorage.setItem('cart', JSON.stringify(store.getState().cart)))
 
 export type RootState = ReturnType<typeof store.getState>;
 
