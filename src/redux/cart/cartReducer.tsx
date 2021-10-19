@@ -1,5 +1,5 @@
 import { ICartAction } from "../../models/CartActionPayload";
-import { DEC_CART_COUNT, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD } from "./cartTypes";
+import { DEC_CART_COUNT, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes";
 
 
 export interface ICartState {
@@ -20,11 +20,9 @@ const initialState:ICartState = {
     allIds: []
 }
 
-const insertItem = (array:string[], key:string):string[] => {
-    let additionArray = [...array];
-    additionArray.push(key);
-    return additionArray;
-}
+const insertItem = (array:string[], key:string):string[] => [...array, key];
+
+const removeItem = (array:string[], key:string):string[] => [...array].filter(a => a !== key)
 
 const cartReducer = (state = initialState, action:ICartAction) => {
     switch(action.type) {
@@ -65,6 +63,68 @@ const cartReducer = (state = initialState, action:ICartAction) => {
                     }
                 }
             }
+        case REM_FOOD:
+            if (state.order.food[action.payload.name].quantity > 1){
+                return {
+                    ...state,
+                    beverageIds: [...state.beverageIds],
+                    foodIds: [...state.foodIds],
+                    allIds: [...state.allIds],
+                    cartValue: state.cartValue - parseFloat(action.payload.data.price),
+                    order: {
+                        drink: {...state.order.drink },
+                        food: {
+                            ...state.order.food,
+                            [action.payload.name]: { ...action.payload.data, quantity: action.payload.quantity }
+                        }
+                    }
+                }
+            }
+            let stateCopy = {
+                ...state,
+                beverageIds: [...state.beverageIds],
+                foodIds: removeItem(state.foodIds, action.payload.name),
+                allIds: removeItem(state.allIds, action.payload.name),
+                cartValue: state.cartValue - parseFloat(action.payload.data.price),
+                order: {
+                    drink: { ...state.order.drink },
+                    food: { ...state.order.food }
+                }
+            }
+
+            delete stateCopy.order.food[action.payload.name];
+            return stateCopy;
+        case REM_BEVERAGE:
+            if (state.order.drink[action.payload.name].quantity > 1){
+                return {
+                    ...state,
+                    beverageIds: [...state.beverageIds],
+                    foodIds: [...state.foodIds],
+                    allIds: [...state.allIds],
+                    cartValue: state.cartValue - parseFloat(action.payload.data.price),
+                    order: {
+                        drink: { 
+                            ...state.order.drink,
+                            [action.payload.name]: { ...action.payload.data, quantity: action.payload.quantity }
+                        },
+                        food: { ...state.order.food }
+                    }
+                }
+            }
+            let _stateCopy = {
+                ...state,
+                foodIds: [...state.foodIds],
+                beverageIds: removeItem(state.beverageIds, action.payload.name),
+                allIds: removeItem(state.allIds, action.payload.name),
+                cartValue: state.cartValue - parseFloat(action.payload.data.price),
+                order: {
+                    drink: { ...state.order.drink },
+                    food: { ...state.order.food }
+                }
+            }
+
+            delete _stateCopy.order.drink[action.payload.name];
+            return _stateCopy;
         default:
             return state;
     }

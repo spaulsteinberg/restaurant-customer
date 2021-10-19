@@ -3,21 +3,34 @@ import Card from 'react-bootstrap/Card'
 import { useDispatch } from 'react-redux';
 import { DRINK_TYPE } from '../../constants/keys';
 import { IItems } from '../../models/firebaseMenuResponse';
-import { decrementCartCount, incrementCartCount, insertBeverage, insertFood } from '../../redux/cart/cartActions';
+import { decrementCartCount, incrementCartCount, insertBeverage, insertFood, removeBeverage, removeFood } from '../../redux/cart/cartActions';
 import logo from './istockphoto-1157515115-612x612.jpg'
 import OrderItemButtons from './OrderItemButtons';
 import OrderItemInfoCard from './OrderItemCardInfo';
 
 type OrderItemProps = {
     item:IItems;
+    selections: any | null;
+    bids:string[];
+    fids:string[]
 }
 
-const OrderItem = ({item}:OrderItemProps) => {
+const selectFood = (key:string, set:any) => set.food[key];
+const selectBeverage = (key:string, set:any) => set.drink[key];
+
+const OrderItem = ({item, selections, bids, fids}:OrderItemProps) => {
+
+
+    let isFocusedItem = null;
+    if (selections) {
+        const isFood = fids.find(f => item.item === f);
+        isFocusedItem = isFood ? selectFood(item.item, selections) : selectBeverage(item.item, selections);
+    }
 
     const dispatch = useDispatch();
 
-    const [showAddItem, setShowAddItem] = useState<boolean>(true);
-    const [count, setCount] = useState<number>(1);
+    const [showAddItem, setShowAddItem] = useState<boolean>(isFocusedItem ? false : true);
+    const [count, setCount] = useState<number>(isFocusedItem ? isFocusedItem.quantity : 1);
 
     const handleShowAddItemClick = () => {
         dispatch(incrementCartCount());
@@ -33,6 +46,7 @@ const OrderItem = ({item}:OrderItemProps) => {
 
     const handleDecrementClick = () => {
         dispatch(decrementCartCount())
+        item.type === DRINK_TYPE ? dispatch(removeBeverage({name: item.item, data: item, quantity: count - 1})) : dispatch(removeFood({name: item.item, data: item, quantity: count - 1}))
         if (count === 1) 
             setShowAddItem(true);
         else 
