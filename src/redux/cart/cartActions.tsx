@@ -1,5 +1,5 @@
 import { ICartActionPayload } from "../../models/CartActionPayload"
-import { DEC_CART_COUNT, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes"
+import { DEC_CART_COUNT, EMPTY_STATE, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes"
 
 
 export const incrementCartCount = () => {
@@ -39,5 +39,11 @@ export const removeBeverage = (payload:ICartActionPayload) => {
     return {
         type: REM_BEVERAGE,
         payload: payload
+    }
+}
+
+export const emptyState = () => {
+    return {
+        type: EMPTY_STATE
     }
 }

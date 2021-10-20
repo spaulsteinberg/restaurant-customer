@@ -25,3 +25,11 @@
 @mixin centered($vertical-margin: 0){
     margin: $vertical-margin auto;
 }
+
+@mixin height-adjusted($height) {
+    height: $height;
+}
+
+@mixin width-adjusted($width) {
+    width: $width;
+}

@@ -1,5 +1,5 @@
 import { ICartAction } from "../../models/CartActionPayload";
-import { DEC_CART_COUNT, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes";
+import { DEC_CART_COUNT, EMPTY_STATE, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes";
 
 
 export interface ICartState {
@@ -125,6 +125,8 @@ const cartReducer = (state = initialState, action:ICartAction) => {
 
             delete _stateCopy.order.drink[action.payload.name];
             return _stateCopy;
+        case EMPTY_STATE:
+            return initialState;
         default:
             return state;
     }
