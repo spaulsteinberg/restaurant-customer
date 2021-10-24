@@ -19,7 +19,7 @@ const ShowCartItems = ({cart}:ShowCartItemsProps) => {
     return (
         <>
             <CartItemDisplay cart={cart} />
-            <TotalFooter total={cart.cartValue} />
+            <TotalFooter total={cart.cartValue} count={cart.count}/>
 
             {/* This is a placeholder for testing*/}
             <AddButton bgColor="success" onClick={handleClearOrder}>Reset</AddButton>

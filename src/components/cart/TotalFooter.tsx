@@ -1,7 +1,8 @@
 import Card from "react-bootstrap/Card";
 
 type TotalFooterProps = {
-    total:number
+    total:number;
+    count:number;
 }
 
 const TotalFooter = (props:TotalFooterProps) => {
@@ -10,7 +11,7 @@ const TotalFooter = (props:TotalFooterProps) => {
             <div className="total-large">
                 <Card>
                     <Card.Body>
-                        Total is: ${props.total.toFixed(2)} 
+                        Total is ({props.count} items): ${props.total.toFixed(2)} 
                     </Card.Body>
                 </Card>
             </div>
