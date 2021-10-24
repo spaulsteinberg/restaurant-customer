@@ -1,11 +1,11 @@
-type CheckoutProps = {
+import React from 'react'
 
-}
+type CheckoutProps = {}
 
 const Checkout = (props:CheckoutProps) => {
     return (
         <div>
-            Checkout page
+            checkout page
         </div>
     )
 }
