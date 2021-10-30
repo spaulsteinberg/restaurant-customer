@@ -1,9 +1,10 @@
 import Card from "react-bootstrap/Card";
 import CartCheckoutOrCancel from "./CartCheckoutOrCancel";
-import { SyntheticEvent } from "react"
+import { SyntheticEvent, useState } from "react"
 import { useDispatch } from "react-redux"
 import { emptyState } from "../../redux/cart/cartActions"
 import { useHistory } from "react-router";
+import ConfirmCancelModal from "./ConfirmCancelModal";
 
 type TotalFooterProps = {
     total:number;
@@ -13,14 +14,24 @@ type TotalFooterProps = {
 const TotalFooter = (props:TotalFooterProps) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const [showModal, setShowModal] = useState(false)
 
     const handleClearClick = (event:SyntheticEvent):void => {
         event.preventDefault();
-        dispatch(emptyState())
+        setShowModal(true)
     } 
 
     const handleCheckoutClick = () => {
         history.push("/cart/checkout")
+    }
+
+    const handleClearConfirm = () => {
+        dispatch(emptyState())
+        setShowModal(false)
+    }
+
+    const handleClearCancel = () => {
+        setShowModal(false)
     }
 
     return (
@@ -33,6 +44,7 @@ const TotalFooter = (props:TotalFooterProps) => {
                 </Card>
             </div>
             <CartCheckoutOrCancel onCancel={handleClearClick} onCheckout={handleCheckoutClick} />
+            <ConfirmCancelModal show={showModal} handleConfirm={handleClearConfirm} handleCancel={handleClearCancel} />
         </div>
     )
 }
