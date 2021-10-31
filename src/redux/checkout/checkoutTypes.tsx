@@ -1,0 +1,4 @@
+
+export const SEND_ORDER = "SEND_ORDER";
+export const SEND_ORDER_SUCCESS = "SEND_ORDER_SUCCESS";
+export const SEND_ORDER_ERROR = "SEND_ORDER_ERROR";
