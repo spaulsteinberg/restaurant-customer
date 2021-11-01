@@ -1,45 +1,78 @@
-import { ChangeEvent, SyntheticEvent } from 'react'
 import Form from "react-bootstrap/Form";
 import CheckoutPaymentButton from "./CheckoutPaymentButton";
 import CheckoutFormItem from "./CheckoutFormItem";
-import { ICheckoutForm } from '../../models/ICheckoutForm';
 import { Stripe } from '@stripe/stripe-js';
 import CheckoutFormStripeFields from './CheckoutFormStripeFields';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 type CheckoutFormProps = {
-    form:ICheckoutForm;
-    submit: (event:SyntheticEvent) => void;
-    inputChange: (e:ChangeEvent<HTMLInputElement>) => void;
     stripe:Stripe|null;
 }
 
-const CheckoutForm = ({form, submit, inputChange, stripe}: CheckoutFormProps) => {
+const CheckoutForm = ({stripe}: CheckoutFormProps) => {
     return (
-        <Form onSubmit={submit}>
-            <CheckoutFormItem
-                labelText="First Name"
-                name="firstName"
-                id="form-first"
-                type="text"
-                value={form.firstName}
-                onChange={inputChange} />
-            <CheckoutFormItem
-                labelText="Last Name"
-                name="lastName"
-                id="form-last"
-                type="text"
-                value={form.lastName}
-                onChange={inputChange} />
-            <CheckoutFormItem
-                labelText="Email"
-                name="email"
-                id="form-email"
-                type="text"
-                value={form.email}
-                onChange={inputChange} />
-            <CheckoutFormStripeFields />
-            <CheckoutPaymentButton isDisabled={!stripe ? true : false} />
-        </Form>
+        <Formik
+            initialValues={{
+                firstName: '',
+                lastName: '',
+                email: '',
+            }}
+            onSubmit={(values, actions) => {
+                console.log("submitting!!", values)
+            }}
+            validationSchema={Yup.object().shape({
+                email: Yup.string().email(),
+                firstName: Yup.string().required('Please enter first name'),
+                lastName: Yup.string().required('Please enter last name')
+            })}
+        >
+            {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+                /* and other goodies */
+            }) => (
+                <Form onSubmit={handleSubmit}>
+                    <CheckoutFormItem
+                        labelText="First Name"
+                        name="firstName"
+                        id="firstName"
+                        type="text"
+                        value={values.firstName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors.firstName}
+                        touched={touched.firstName} />
+                    <CheckoutFormItem
+                        labelText="Last Name"
+                        name="lastName"
+                        id="lastName"
+                        type="text"
+                        value={values.lastName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors.lastName}
+                        touched={touched.lastName} />
+                    <CheckoutFormItem
+                        labelText="Email"
+                        name="email"
+                        id="email"
+                        type="text"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors.email}
+                        touched={touched.email} />
+                    <CheckoutFormStripeFields />
+                    <CheckoutPaymentButton isDisabled={!stripe ? true : false} />
+                </Form>
+            )}
+        </Formik>
     )
 }
 
