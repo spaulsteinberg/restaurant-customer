@@ -1,11 +1,16 @@
-import React from 'react'
+import {Elements, CardElement} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 type CheckoutProps = {}
 
 const Checkout = (props:CheckoutProps) => {
+    const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
+
     return (
         <div>
-            checkout page
+            <Elements stripe={stripePromise}>
+                <CardElement />
+            </Elements>
         </div>
     )
 }

@@ -8,7 +8,6 @@ type ProtectedRouteProps = {
 }
 const ProtectedRoute = ({route, component}:ProtectedRouteProps) => {
     const itemsInCart = useCartSelector();
-    console.log(itemsInCart)
     return itemsInCart ? <Route path={route} component={component} /> : <Redirect to="/ordering" />
 }
 
