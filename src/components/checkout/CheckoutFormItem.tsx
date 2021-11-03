@@ -20,8 +20,8 @@ const CheckoutFormItem = ({labelText, error, touched, ...rest}:CheckoutFormItemP
     return (
         <FormGroup className="checkout-cart-form-item">
             <Form.Label>{labelText}</Form.Label>
-            <FormControl {...rest} />
-            <CheckoutFormItemFeedback error={error} touched={touched} />
+            <FormControl {...rest} className={error && touched ? "form-control-error" : "form-control"}/>
+            <CheckoutFormItemFeedback error={error} touched={touched} hasTouchedProperty/>
         </FormGroup>
     )
 }

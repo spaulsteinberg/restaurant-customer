@@ -1,16 +1,52 @@
+import {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import CheckoutPaymentButton from "./CheckoutPaymentButton";
 import CheckoutFormItem from "./CheckoutFormItem";
-import { Stripe } from '@stripe/stripe-js';
+import { Stripe, StripeElements } from '@stripe/stripe-js';
 import CheckoutFormStripeFields from './CheckoutFormStripeFields';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { CardElement } from "@stripe/react-stripe-js";
+import { handleOrder, handlePayment } from "../../redux/checkout/checkoutHelpers";
+import CheckoutFormAlertStatus from './CheckoutFormAlertStatus';
 
 type CheckoutFormProps = {
     stripe:Stripe|null;
+    elements:StripeElements|null;
+    amount:string;
 }
 
-const CheckoutForm = ({stripe}: CheckoutFormProps) => {
+const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
+    const [message, setMessage] = useState({message: "", isError: false});
+    const [cardComplete, setCardComplete] = useState<boolean>(false);
+    const [cardError, setCardError] = useState<string>("");
+
+    const handleSubmitOrder = async (first:string, last:string, email:string, token:string, ccLast:string|undefined) => {
+        setMessage({message: "Creating Order...", isError: false})
+        ccLast = ccLast ? `XXXX-XXXX-XXXX-${ccLast}` : 'XXXX-XXXX-XXXX-XXXX'
+        handleOrder({firstName: first, lastName: last, email: email, credit: ccLast})
+        .then(res => {
+            setMessage({message: "Order created. Processing payment....", isError: false});
+            handlePayment(token, email, amount)
+            .then(() => {
+                setMessage({message: "Complete!", isError: false})
+            })
+            .catch(() => {
+                setMessage({message: "An error occurred processing your payment.", isError: true})
+            })
+        })
+        .catch(() => {
+            setMessage({message: "An error occurred creating your order.", isError: true})
+        })
+    }
+
+    const handleCreditInputChanges = (event:any):void => {
+        console.log(event)
+        setCardComplete(event.complete)
+        if (event.error) {
+            setCardError(event.error.message)
+        } else setCardError("")
+    }
     return (
         <Formik
             initialValues={{
@@ -18,8 +54,19 @@ const CheckoutForm = ({stripe}: CheckoutFormProps) => {
                 lastName: '',
                 email: '',
             }}
-            onSubmit={(values, actions) => {
+            onSubmit={ async (values, actions) => {
+                setMessage({ message: "", isError: false })
                 console.log("submitting!!", values)
+                if (!stripe || !elements) {
+                    // Stripe.js has not yet loaded.
+                    setMessage({ message: "Error syncing payment service. Please try again later.", isError: false })
+                    return;
+                }
+
+                const card = elements.getElement(CardElement);
+                const result = await stripe.createToken(card!);
+                result.error ? setMessage({ message: "An error occurred with payment service. Please try again later.", isError: true })
+                    : handleSubmitOrder(values.firstName, values.lastName, values.email, result.token.id, result.token.card?.last4)
             }}
             validationSchema={Yup.object().shape({
                 email: Yup.string().email(),
@@ -68,8 +115,9 @@ const CheckoutForm = ({stripe}: CheckoutFormProps) => {
                         onBlur={handleBlur}
                         error={errors.email}
                         touched={touched.email} />
-                    <CheckoutFormStripeFields />
-                    <CheckoutPaymentButton isDisabled={!stripe ? true : false} />
+                    <CheckoutFormStripeFields handleChange={handleCreditInputChanges} error={cardError}/>
+                    <CheckoutPaymentButton isDisabled={!stripe || isSubmitting || !cardComplete ? true : false}/>
+                    {message.message ? <CheckoutFormAlertStatus message={message.message} isError={message.isError} /> : null}
                 </Form>
             )}
         </Formik>

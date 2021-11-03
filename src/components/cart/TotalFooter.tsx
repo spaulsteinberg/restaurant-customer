@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux"
 import { emptyState } from "../../redux/cart/cartActions"
 //import { useHistory } from "react-router";
 import ConfirmCancelModal from "./ConfirmCancelModal";
-//import { processCheckout } from "../../redux/checkout/checkoutActions";
 import CheckoutModal from '../checkout/CheckoutModal'
 
 type TotalFooterProps = {
@@ -25,7 +24,6 @@ const TotalFooter = (props:TotalFooterProps) => {
     } 
 
     const handleCheckoutClick = async () => {
-     //   dispatch(processCheckout({firstName: "Samuel", lastName: "Steinberg", email: "s@gmail.com", credit: "12345678910111213"}))
      //   history.push("/cart/checkout")
         setShowCheckoutModal(true)
     }
@@ -54,7 +52,7 @@ const TotalFooter = (props:TotalFooterProps) => {
             </div>
             <CartCheckoutOrCancel onCancel={handleClearClick} onCheckout={handleCheckoutClick} />
             <ConfirmCancelModal show={showCancelModal} handleConfirm={handleClearConfirm} handleCancel={handleClearCancel} />
-            <CheckoutModal show={showCheckoutModal} handleCancel={handleCheckoutClose} />
+            <CheckoutModal show={showCheckoutModal} handleCancel={handleCheckoutClose} amount={props.total.toFixed(2)}/>
         </div>
     )
 }

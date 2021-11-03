@@ -27,10 +27,10 @@ export const sendOrderError = (error:string) => {
 }
 
 export const processCheckout = (custInfo:ICustomerInfo) => {
-    return async (dispatch:Dispatch<any>) => {
+    return (dispatch:Dispatch<any>) => {
         dispatch(sendOrder());
         const cart = store.getState().cart;
-        fetch(`${process.env.REACT_APP_ORDER_SPRING_SERVER}/send/order`, {
+        return fetch(`${process.env.REACT_APP_ORDER_SPRING_SERVER}/send/order`, {
             method: 'POST',
             mode: 'cors',
             headers: {
