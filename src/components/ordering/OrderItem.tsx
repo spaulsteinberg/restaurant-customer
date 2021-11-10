@@ -55,7 +55,7 @@ const OrderItem = ({item, selections, bids, fids}:OrderItemProps) => {
 
     return (
         <Card className="order-item">
-            <OrderItemInfoCard photo={logo} name={item.item} description={item.description} price={item.price} />
+            <OrderItemInfoCard photo={item.imageAddress ? item.imageAddress : logo} name={item.item} description={item.description} price={item.price} />
             <OrderItemButtons 
                 showAddItem={showAddItem}
                 add={handleShowAddItemClick}

@@ -11,7 +11,7 @@ const CartItem = ({data}:CartItemProps) => {
     
     return (
         <Card className="view-cart-item mb-4 mr-4" style={{flexDirection: wideView ? "row" : "column"}}>
-            <div style={{height: "200px", width: "200px", backgroundColor: "gray"}}>img</div>
+            {data.imageAddress ? <img src={data.imageAddress} alt="image item" /> : <div style={{height: "200px", width: "200px", backgroundColor: "gray"}}>img</div>}
             <Card.Body>
                 <CartItemBody data={data} />
             </Card.Body>

@@ -16,4 +16,5 @@ export interface IItems {
     item:string;
     price:string;
     type:string;
+    imageAddress:string;
 }
