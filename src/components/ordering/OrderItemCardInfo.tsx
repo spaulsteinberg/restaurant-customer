@@ -11,7 +11,15 @@ type OrderItemInfoCardProps = {
 const OrderItemInfoCard = ({photo, name, description, price}:OrderItemInfoCardProps) => {
     return (
         <React.Fragment>
-            <Card.Img variant="top" src={photo} />
+            {
+                photo 
+                ? 
+                <div className="menu-item-img">
+                    <Card.Img variant="top" src={photo} />
+                </div>
+                : 
+                <div className="noshow-div">No photo available.</div>
+            }
             <Card.Body className="text-dark">
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>

@@ -41,7 +41,6 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
     }
 
     const handleCreditInputChanges = (event:any):void => {
-        console.log(event)
         setCardComplete(event.complete)
         if (event.error) {
             setCardError(event.error.message)
@@ -56,7 +55,6 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
             }}
             onSubmit={ async (values, actions) => {
                 setMessage({ message: "", isError: false })
-                console.log("submitting!!", values)
                 if (!stripe || !elements) {
                     // Stripe.js has not yet loaded.
                     setMessage({ message: "Error syncing payment service. Please try again later.", isError: false })

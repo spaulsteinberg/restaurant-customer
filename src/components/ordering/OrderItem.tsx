@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { DRINK_TYPE } from '../../constants/keys';
 import { IItems } from '../../models/firebaseMenuResponse';
 import { decrementCartCount, incrementCartCount, insertBeverage, insertFood, removeBeverage, removeFood } from '../../redux/cart/cartActions';
-import logo from './istockphoto-1157515115-612x612.jpg'
 import OrderItemButtons from './OrderItemButtons';
 import OrderItemInfoCard from './OrderItemCardInfo';
 
@@ -55,7 +54,7 @@ const OrderItem = ({item, selections, bids, fids}:OrderItemProps) => {
 
     return (
         <Card className="order-item">
-            <OrderItemInfoCard photo={item.imageAddress ? item.imageAddress : logo} name={item.item} description={item.description} price={item.price} />
+            <OrderItemInfoCard photo={item.imageAddress ? item.imageAddress : null} name={item.item} description={item.description} price={item.price} />
             <OrderItemButtons 
                 showAddItem={showAddItem}
                 add={handleShowAddItemClick}

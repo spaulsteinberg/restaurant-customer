@@ -20,9 +20,7 @@ export const OrderPage = () => {
     const orderState = useSelector<RootState, any>(state => state.cart.order);
 
     useEffect(() => {
-        if (!menuState.data) {
-            dispatch(getCurrentMenu())
-        }
+        dispatch(getCurrentMenu())
         // eslint-disable-next-line
     }, []);
 

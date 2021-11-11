@@ -44,14 +44,8 @@ export const processCheckout = (custInfo:ICustomerInfo) => {
             })
         })
         .then(res => res.json())
-        .then((res:IOrderCreatedResponse) => {
-            console.log(res)
-            dispatch(sendOrderSuccess(res))
-        })
-        .catch(err => {
-            console.log(err)
-            dispatch(sendOrderError("An error occurred processing your order. Please try again."))
-        })
+        .then((res:IOrderCreatedResponse) => dispatch(sendOrderSuccess(res)))
+        .catch(err => dispatch(sendOrderError("An error occurred processing your order. Please try again.")))
     }
 }
 
@@ -59,7 +53,6 @@ export const processCheckout = (custInfo:ICustomerInfo) => {
 const denormalizeOrder = (cart:ICartState) => {
     let food:any[] = [];
     let drink:any[] = []
-    console.log(cart)
     food = extractFoodArray(cart.foodIds, food, cart.order.food)
     drink = extractDrinkArray(cart.beverageIds, drink, cart.order.drink)
     return { food: food, drink: drink }

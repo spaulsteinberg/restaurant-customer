@@ -35,14 +35,12 @@ export const getCurrentMenu = () => {
         .get() 
         .then((response:firebase.firestore.QuerySnapshot<IMenu>) => {
             if (response){
-                dispatch(getMenuSuccess(response.docs[0].data()))
+                const menuData = response.docs[0].data()
+                dispatch(getMenuSuccess(menuData))
             } else {
                 dispatch(getMenuError("No current menu set."))
             }
         })
-        .catch(err => {
-            console.log(err)
-            dispatch(getMenuError("An error occurred getting the current menu"))
-        })
+        .catch(err => dispatch(getMenuError("An error occurred getting the current menu")))
     }
 }
