@@ -31,7 +31,7 @@ const CartItemBody = ({data}:CartItemBodyProps) => {
 
     return (
         <>
-            <Card.Title>{data.item} - {data.description}</Card.Title>
+            <Card.Title>{data.item}</Card.Title>
             <p><strong>Price: ${parseFloat(data.price).toFixed(2)}</strong></p>
             <p>
                 <span className="mr-2">Quantity: </span>

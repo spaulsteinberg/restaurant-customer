@@ -2,10 +2,12 @@
 
 .view-cart-item-container {
     @include flex-column;
-    width: 100%;
+    width: 70%;
+    margin: 1rem auto;
     justify-content: center;
     .view-cart-item {
         @include create-flex-container(100%);
+        overflow: hidden;
     }
 }
 
@@ -13,12 +15,14 @@
     @include flex-row;
     @include centered;
     width: 90%;
+    max-width: 450px;
     align-content: flex-start;
     justify-content: center;
 }
 
 .cart-container {
     @include flex-column;
+    max-width: 1500px;
     padding: 1rem;
     color: $CARD-TEXT-COLOR;
     justify-content: space-between;
@@ -53,17 +57,90 @@
     margin-bottom: 1rem;
 }
 
+.cart-image-container {
+    height: 200px;
+    width: 240px !important;
+    max-width: 250px;
+    min-width: 250px; 
+    overflow: hidden;
+    img {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+.noshow-div-cart {
+    @include gray-div(200px);
+    width: 100%;
+}
+
+
+
+
+@media screen and (max-width: resolution("mobile")) {
+    .view-cart-item-container {
+        width: 348px;
+        max-width: 348px;
+        min-width: 348px;
+        .view-cart-item {
+            width: 100%;
+        }
+    }
+    .cart-image-container {
+        @include four-over-three-aspect(262px);
+    }
+}
+
+@media screen and (max-width: resolution("extra-small")) {
+    .view-cart-item-container {
+        width: 240px;
+        max-width: 240px;
+        min-width: 240px;
+        .view-cart-item {
+            width: 100%;
+        }
+    }
+    .cart-image-container {
+        @include four-over-three-aspect(180px);
+    }
+}
+
+@media screen and (max-width: 260px) {
+    .view-cart-item-container {
+        width: 200px;
+        max-width: 200px;
+        min-width: 200px;
+        .view-cart-item {
+            width: 100%;
+        }
+    }
+}
+
 @media screen and (min-width: resolution("mobile")) {
 
     .view-cart-item-container {
         @include flex-row;
         @include centered;
-        width: 80%;
+        width: 95%;
+    }
+
+    
+    .cart-container {
+        @include flex-row;
+    }
+
+    .cart-image-container {
+        @include four-over-three-aspect(160px);
     }
 
     .no-items-cart { width: 40%; }
 
     .view-cart-total-container { width: 50%}
+
+    .noshow-div-cart {
+        @include gray-div(160px, true);
+    }
 }
 
 // switches to horizontal view here
@@ -76,10 +153,6 @@
     }
 
     .no-items-cart { width: 30%; }
-
-    .cart-container {
-        @include flex-row;
-    }
 
     .view-cart-total-container { margin: 0; width: 30%}
 }

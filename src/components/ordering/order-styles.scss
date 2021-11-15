@@ -18,21 +18,14 @@
 }
 
 .menu-item-img {
-    height: 250px;
+    height: 200px;
+    width: 100%;
     overflow: auto;
     img {
         height: 100%;
-        width: auto;
+        width: 100%;
         max-width: 100%;
     }
-}
-
-.noshow-div {
-    height: 250px;
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .item-container {
@@ -66,16 +59,52 @@
     }
 }
 
+@media screen and (min-width: 260px){
+    .item-container {
+        .section-row {
+            .order-item {
+                max-width: 240px;
+                width: 240px;
+                min-width: 240px;
+            }
+        }
+    }
+    .menu-item-img {
+        height: 180px;
+    }
+}
+
+@media screen and (min-width: resolution("extra-small")){
+    .item-container {
+        .section-row {
+            .order-item {
+                max-width: 320px;
+                width: 320px;
+                min-width: 320px;
+            }
+        }
+    }
+    .menu-item-img {
+        height: 240px;
+    }
+}
+
 @media screen and (min-width: resolution("mobile")){
     .item-container {
         flex-direction: row;
         .section-row {
             .order-item {
                 @include create-flex-container(75%);
+                max-width: 350px;
+                width: 350px;
+                min-width: 350px;
             }
         }
     }
 
+    .menu-item-img {
+        height: 262px;
+    }
     .error-alert {width: 75%;}
 }
 
@@ -85,11 +114,19 @@
         .section-title { font-size: 2.5rem }
         .section-row {
             .order-item { 
+                max-width: 300px;
+                width: 300px;
+                min-width: 300px;
                 @include create-flex-container(60%);
             }
         }
     }
+
     #menu-header-title {font-size: 2.5rem;}
+
+    .menu-item-img {
+        height: 225px;
+    }
 }
 
 @media screen and (min-width: resolution("tablet")){
@@ -98,7 +135,7 @@
         .section-title { font-size: 3rem }
         .section-row {
             .order-item { 
-                @include create-flex-container(45%);
+                @include create-flex-container(30%);
                 .button-container {
                     width: 50%;
                 }
@@ -116,7 +153,6 @@
         .section-row {
             .order-item { 
                 @include create-flex-container(30%);
-                max-width: 330px;
             }
         }
     }

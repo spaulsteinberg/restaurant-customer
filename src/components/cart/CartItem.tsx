@@ -7,13 +7,19 @@ type CartItemProps = {
 }
 
 const CartItem = ({data}:CartItemProps) => {
-    const {wideView} = useWidth(768);
-    
+    const {wideView} = useWidth(500);
+    //<div className="cart-image-container" style={{backgroundImage: `url(${data.imageAddress})`}}></div> 
     return (
         <Card className="view-cart-item mb-4 mr-4" style={{flexDirection: wideView ? "row" : "column"}}>
-            {data.imageAddress ? <img src={data.imageAddress} alt="item" /> : <div style={{height: "200px", width: "200px", backgroundColor: "gray"}}>img</div>}
+            {
+                data.imageAddress ? 
+                <div className="cart-image-container">
+                    <img src={data.imageAddress} alt="item" />  
+                </div> 
+                : <div className="noshow-div-cart">No photo available.</div>
+            }
             <Card.Body>
-                <CartItemBody data={data} />
+                <CartItemBody data={data}/>
             </Card.Body>
         </Card>
     )

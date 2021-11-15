@@ -33,3 +33,21 @@
 @mixin width-adjusted($width) {
     width: $width;
 }
+
+@mixin gray-div($size, $width-optional: false){
+    height: $size;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @if ($width-optional == true) {
+        width: calc(#{$size} * 4 / 3)
+    }
+}
+
+@mixin four-over-three-aspect($height){
+    height: $height;
+    width: calc(#{$height} * 4 / 3);
+    max-width: calc(#{$height} * 4 / 3);
+    min-width: calc(#{$height} * 4 / 3);
+}

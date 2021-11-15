@@ -14,3 +14,7 @@
     padding: 3px 4px 3px 4px;
     line-height: .7rem;
 }
+
+.noshow-div {
+    @include gray-div(250px);
+}
