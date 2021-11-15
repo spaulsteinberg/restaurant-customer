@@ -4,12 +4,12 @@ import { GET_MENU, GET_MENU_ERROR, GET_MENU_SUCCESS } from "./menuTypes"
 export interface IMenuState {
     loading:boolean,
     data:IMenu|null,
-    error:any
+    error:any,
 }
 const initialState:IMenuState = {
     loading: false,
     data: null,
-    error: null
+    error: null,
 }
 
 const menuReducer = (state = initialState, action:any) => {

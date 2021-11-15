@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import { Dispatch } from "react"
 import { db } from "../../firebase/firebase"
 import { IMenu } from '../../models/firebaseMenuResponse';
+import { emptyState } from '../cart/cartActions';
 import { menuConverter } from "../converters"
 import { GET_MENU, GET_MENU_ERROR, GET_MENU_SUCCESS } from "./menuTypes"
 
@@ -36,6 +37,12 @@ export const getCurrentMenu = () => {
         .then((response:firebase.firestore.QuerySnapshot<IMenu>) => {
             if (response){
                 const menuData = response.docs[0].data()
+
+                if (!localStorage.getItem(process.env.REACT_APP_LOCAL_MENU_KEY!) || localStorage.getItem(process.env.REACT_APP_LOCAL_MENU_KEY!) !== menuData.name){
+                    dispatch(emptyState())
+                    localStorage.setItem(process.env.REACT_APP_LOCAL_MENU_KEY!, menuData.name)
+                }
+
                 dispatch(getMenuSuccess(menuData))
             } else {
                 dispatch(getMenuError("No current menu set."))
