@@ -9,6 +9,8 @@ import * as Yup from 'yup';
 import { CardElement } from "@stripe/react-stripe-js";
 import { handleOrder, handlePayment } from "../../redux/checkout/checkoutHelpers";
 import CheckoutFormAlertStatus from './CheckoutFormAlertStatus';
+import { checkForCurrentMenu } from '../../firebase/api';
+import { useHistory } from 'react-router';
 
 type CheckoutFormProps = {
     stripe:Stripe|null;
@@ -20,24 +22,35 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
     const [message, setMessage] = useState({message: "", isError: false});
     const [cardComplete, setCardComplete] = useState<boolean>(false);
     const [cardError, setCardError] = useState<string>("");
+    const history = useHistory();
 
     const handleSubmitOrder = async (first:string, last:string, email:string, token:string, ccLast:string|undefined) => {
         setMessage({message: "Creating Order...", isError: false})
-        ccLast = ccLast ? `XXXX-XXXX-XXXX-${ccLast}` : 'XXXX-XXXX-XXXX-XXXX'
-        handleOrder({firstName: first, lastName: last, email: email, credit: ccLast})
-        .then(res => {
-            setMessage({message: "Order created. Processing payment....", isError: false});
-            handlePayment(token, email, amount)
-            .then(() => {
-                setMessage({message: "Complete!", isError: false})
+        checkForCurrentMenu()
+            .then(res => {
+                if (res) {
+                    ccLast = ccLast ? `XXXX-XXXX-XXXX-${ccLast}` : 'XXXX-XXXX-XXXX-XXXX'
+                    handleOrder({ firstName: first, lastName: last, email: email, credit: ccLast })
+                    .then(res => {
+                        setMessage({ message: "Order created. Processing payment....", isError: false });
+                        handlePayment(token, email, amount)
+                            .then(() => {
+                                setMessage({ message: "Complete!", isError: false })
+                            })
+                            .catch(() => {
+                                setMessage({ message: "An error occurred processing your payment.", isError: true })
+                            })
+                    })
+                    .catch(() => {
+                        setMessage({ message: "An error occurred creating your order.", isError: true })
+                    })
+                } else {
+                    setMessage({message: `Your menu has expired. Routing back to main menu...`, isError: true})
+                    setTimeout(() => {
+                        history.push('/ordering')
+                    }, 2500)
+                }
             })
-            .catch(() => {
-                setMessage({message: "An error occurred processing your payment.", isError: true})
-            })
-        })
-        .catch(() => {
-            setMessage({message: "An error occurred creating your order.", isError: true})
-        })
     }
 
     const handleCreditInputChanges = (event:any):void => {
