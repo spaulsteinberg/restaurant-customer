@@ -11,6 +11,8 @@ import { handleOrder, handlePayment } from "../../redux/checkout/checkoutHelpers
 import CheckoutFormAlertStatus from './CheckoutFormAlertStatus';
 import { checkForCurrentMenu } from '../../firebase/api';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setCheckoutLoading, setCompletedStatus } from '../../redux/checkout/checkoutActions';
 
 type CheckoutFormProps = {
     stripe:Stripe|null;
@@ -19,6 +21,7 @@ type CheckoutFormProps = {
 }
 
 const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
+    const dispatch = useDispatch()
     const [message, setMessage] = useState({message: "", isError: false});
     const [cardComplete, setCardComplete] = useState<boolean>(false);
     const [cardError, setCardError] = useState<string>("");
@@ -36,13 +39,16 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                         handlePayment(token, email, amount)
                             .then(() => {
                                 setMessage({ message: "Complete!", isError: false })
+                                dispatch(setCompletedStatus(true))
                             })
                             .catch(() => {
                                 setMessage({ message: "An error occurred processing your payment.", isError: true })
                             })
+                            .finally(() => dispatch(setCheckoutLoading(false)))
                     })
                     .catch(() => {
                         setMessage({ message: "An error occurred creating your order.", isError: true })
+                        dispatch(setCheckoutLoading(false))
                     })
                 } else {
                     setMessage({message: `Your menu has expired. Routing back to main menu...`, isError: true})
@@ -67,6 +73,7 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                 email: '',
             }}
             onSubmit={ async (values, actions) => {
+                dispatch(setCheckoutLoading(true))
                 setMessage({ message: "", isError: false })
                 if (!stripe || !elements) {
                     // Stripe.js has not yet loaded.

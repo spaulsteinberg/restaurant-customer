@@ -3,7 +3,7 @@ import { ICustomerInfo } from "../../models/ICustomerInfo"
 import { IOrderCreatedResponse } from "../../models/IOrderCreatedResponse"
 import { ICartState } from "../cart/cartReducer"
 import store from "../store"
-import { SEND_ORDER, SEND_ORDER_ERROR, SEND_ORDER_SUCCESS } from "./checkoutTypes"
+import { RESET_CHECKOUT_STATE, SEND_ORDER, SEND_ORDER_ERROR, SEND_ORDER_SUCCESS, SET_CHECKOUT_LOADING, SET_COMPLETED_STATUS } from "./checkoutTypes"
 
 
 export const sendOrder = () => {
@@ -23,6 +23,26 @@ export const sendOrderError = (error:string) => {
     return {
         type: SEND_ORDER_ERROR,
         payload: error
+    }
+}
+
+export const setCompletedStatus = (status:boolean) => {
+    return {
+        type: SET_COMPLETED_STATUS,
+        payload: status
+    }
+}
+
+export const resetCheckoutState = () => {
+    return {
+        type: RESET_CHECKOUT_STATE
+    }
+}
+
+export const setCheckoutLoading = (status:boolean) => {
+    return {
+        type: SET_CHECKOUT_LOADING,
+        payload: status
     }
 }
 

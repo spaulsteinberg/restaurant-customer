@@ -6,15 +6,16 @@ import './checkout-styles.scss'
 type CheckoutModalProps = {
     show:boolean,
     amount:string,
+    hasCompletedOrder: boolean,
     handleCancel: () => void;
 }
-const CheckoutModal = ({show, amount, handleCancel}:CheckoutModalProps) => {
+const CheckoutModal = ({show, amount, hasCompletedOrder, handleCancel}:CheckoutModalProps) => {
 
     const stripe = useStripe();
     const elements = useElements();
 
     return (
-        <Modal show={show} onHide={handleCancel}>
+        <Modal show={show} onHide={handleCancel} backdrop={hasCompletedOrder ? "static" : true}>
             <Modal.Header closeButton>
                 <Modal.Title>Please enter you payment information:</Modal.Title>
             </Modal.Header>
