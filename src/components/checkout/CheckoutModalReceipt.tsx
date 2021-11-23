@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store'
 import ReceiptCardBar from './ReceiptCardBar'
 import ReceiptDateBar from './ReceiptDateBar'
 import ReceiptInfoBar from './ReceiptInfoBar'
+import ReceiptNumber from './ReceiptNumber'
 import ReceiptOrder from './ReceiptOrder'
 import ReceiptTotalBar from './ReceiptTotalBar'
 
@@ -18,10 +19,11 @@ const CheckoutModalReceipt = (props:CheckoutModalReceiptProps) => {
     return (
         <div className="receipt-container centered-text">
             <ReceiptInfoBar />
-            <ReceiptDateBar />
+            <ReceiptDateBar date={checkout.createdAt}/>
             <ReceiptOrder cart={cart} />
             <ReceiptTotalBar total={cart.cartValue} />
             <ReceiptCardBar card={checkout.last4} />
+            <ReceiptNumber receipt={checkout.receipt} />
         </div>
     )
 }

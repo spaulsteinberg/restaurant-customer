@@ -34,12 +34,12 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                 if (res) {
                     ccLast = ccLast ? `XXXX-XXXX-XXXX-${ccLast}` : 'XXXX-XXXX-XXXX-XXXX'
                     handleOrder({ firstName: first, lastName: last, email: email, credit: ccLast })
-                    .then(res => {
+                    .then(createdOrder => {
                         setMessage({ message: "Order created. Processing payment....", isError: false });
                         handlePayment(token, email, amount)
                             .then(() => {
                                 setMessage({ message: "Complete!", isError: false })
-                                dispatch(setCompletedStatus({status: true, last4: ccLast}))
+                                dispatch(setCompletedStatus({status: true, last4: ccLast, receipt: createdOrder.data.reference, createdAt: createdOrder.data.createdAt}))
                             })
                             .catch(() => {
                                 setMessage({ message: "An error occurred processing your payment.", isError: true })
