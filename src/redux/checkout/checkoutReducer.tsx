@@ -27,7 +27,7 @@ const checkoutReducer = (state = initialState, action: any /*ICartAction*/) => {
         case SEND_ORDER_ERROR:
             return { ...state, loading: false, data: null, error: action.payload }
         case SET_COMPLETED_STATUS:
-            return { ...state, hasCompletedOrder: action.payload }
+            return { ...state, hasCompletedOrder: action.payload.status, last4: action.payload.last4 }
         case SET_CHECKOUT_LOADING:
             return {...state, loading: action.payload}
         case RESET_CHECKOUT_STATE:

@@ -1,9 +1,11 @@
 
-type ReceiptCardBarProps = {}
-const ReceiptCardBar = (props: ReceiptCardBarProps) => {
+type ReceiptCardBarProps = {
+    card:string|undefined
+}
+const ReceiptCardBar = ({card}: ReceiptCardBarProps) => {
     return (
         <div className="full-width-container centered-text">
-            CARD NUMBER --
+            Card: {card ? card : "See emailed receipt."}
         </div>
     )
 }

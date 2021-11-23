@@ -10,7 +10,7 @@ const CheckoutModalCompletionFooter = ({handleClick}:CheckoutModalCompletionFoot
     return (
         <div className="new-order-button-container">
             <Button variant="primary" className="new-order-button" onClick={handleClick}>Start a new order</Button>
-            <Disclaimer variant="danger">*Please not that you will not be able to return to this page.</Disclaimer>
+            <Disclaimer variant="danger">*Please note that you will not be able to return to this page.</Disclaimer>
         </div>
     )
 }

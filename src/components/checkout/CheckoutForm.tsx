@@ -39,7 +39,7 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                         handlePayment(token, email, amount)
                             .then(() => {
                                 setMessage({ message: "Complete!", isError: false })
-                                dispatch(setCompletedStatus(true))
+                                dispatch(setCompletedStatus({status: true, last4: ccLast}))
                             })
                             .catch(() => {
                                 setMessage({ message: "An error occurred processing your payment.", isError: true })

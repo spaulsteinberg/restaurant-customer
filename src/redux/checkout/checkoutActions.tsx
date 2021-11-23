@@ -1,4 +1,5 @@
 import { Dispatch } from "react"
+import { ICompletedStatusPayload } from "../../models/ICompletedStatusPayload"
 import { ICustomerInfo } from "../../models/ICustomerInfo"
 import { IOrderCreatedResponse } from "../../models/IOrderCreatedResponse"
 import { ICartState } from "../cart/cartReducer"
@@ -26,10 +27,10 @@ export const sendOrderError = (error:string) => {
     }
 }
 
-export const setCompletedStatus = (status:boolean) => {
+export const setCompletedStatus = (payload:ICompletedStatusPayload) => {
     return {
         type: SET_COMPLETED_STATUS,
-        payload: status
+        payload: payload
     }
 }
 
