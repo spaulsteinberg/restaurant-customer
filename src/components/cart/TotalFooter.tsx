@@ -57,7 +57,7 @@ const TotalFooter = (props:TotalFooterProps) => {
             </div>
             <CartCheckoutOrCancel onCancel={handleClearClick} onCheckout={handleCheckoutClick} />
             <ConfirmCancelModal show={showCancelModal} handleConfirm={handleClearConfirm} handleCancel={handleClearCancel} />
-            <CheckoutModal show={showCheckoutModal} handleCancel={handleCheckoutClose} hasCompletedOrder={true} amount={props.total.toFixed(2)}/>
+            <CheckoutModal show={showCheckoutModal} handleCancel={handleCheckoutClose} hasCompletedOrder={checkoutState.hasCompletedOrder} amount={props.total.toFixed(2)}/>
         </div>
     )
 }

@@ -7,7 +7,7 @@ import rootReducer from "./rootReducer";
 let preloadedState
 const persistedCart = localStorage.getItem(process.env.REACT_APP_LOCAL_STORE_KEY!)
 try {
-    preloadedState = persistedCart ? {cart: JSON.parse(persistedCart)["cart"]} : {}
+    preloadedState = persistedCart ? {cart: JSON.parse(persistedCart)["cart"], checkout: JSON.parse(persistedCart)["checkout"]} : {}
 } catch {
     preloadedState = {}
 }

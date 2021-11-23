@@ -27,8 +27,14 @@
     }
 }
 
+.receipt-disclaimer {
+    @include flex-row;
+    @include centered(.25rem);
+}
+
 .new-order-button-container {
     display: flex;
+    flex-wrap: wrap;
     .new-order-button {
         @include centered(1rem);
         width: 50%;

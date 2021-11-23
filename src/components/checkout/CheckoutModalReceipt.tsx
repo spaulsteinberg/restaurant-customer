@@ -4,6 +4,7 @@ import { ICartState } from '../../redux/cart/cartReducer'
 import { RootState } from '../../redux/store'
 import ReceiptCardBar from './ReceiptCardBar'
 import ReceiptDateBar from './ReceiptDateBar'
+import ReceiptInfoBar from './ReceiptInfoBar'
 import ReceiptOrder from './ReceiptOrder'
 import ReceiptTotalBar from './ReceiptTotalBar'
 
@@ -14,6 +15,7 @@ const CheckoutModalReceipt = (props:CheckoutModalReceiptProps) => {
 
     return (
         <div className="receipt-container centered-text">
+            <ReceiptInfoBar />
             <ReceiptDateBar />
             <ReceiptOrder cart={cart} />
             <ReceiptTotalBar total={cart.cartValue} />

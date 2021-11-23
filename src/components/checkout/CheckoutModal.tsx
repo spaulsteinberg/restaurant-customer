@@ -18,7 +18,7 @@ const CheckoutModal = ({show, amount, hasCompletedOrder, handleCancel}:CheckoutM
     const elements = useElements();
     const history = useHistory();
 
-    const completedOrderHeader = "Thank you for your order! Here is your receipt:";
+    const completedOrderHeader = "Thank you for your order!";
     const inProgressOrderHeader = "Please enter you payment information:";
 
     const handleOnCreateNewOrderClick = () => {

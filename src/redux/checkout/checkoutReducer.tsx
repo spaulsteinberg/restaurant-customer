@@ -4,14 +4,18 @@ import { RESET_CHECKOUT_STATE, SEND_ORDER, SEND_ORDER_ERROR, SEND_ORDER_SUCCESS,
 export interface ICheckoutState {
     loading:boolean;
     data:any;
-    hasCompletedOrder:boolean;
     error:any;
+    hasCompletedOrder:boolean;
+    last4:string;
+    createdAt:string;
 }
 const initialState:ICheckoutState = {
     loading: false,
     data: null,
+    error: null,
     hasCompletedOrder: false,
-    error: null
+    last4: '',
+    createdAt: '',
 }
 
 const checkoutReducer = (state = initialState, action: any /*ICartAction*/) => {

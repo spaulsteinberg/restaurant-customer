@@ -9,6 +9,9 @@ import { RootState } from '../../redux/store';
 import { IMenuState } from '../../redux/menu/menuReducer';
 import { Alert } from 'react-bootstrap';
 import OrderSection from './OrderSection';
+import useCheckout from '../../hooks/useCheckout';
+import { resetCheckoutState } from '../../redux/checkout/checkoutActions';
+import { emptyState } from '../../redux/cart/cartActions';
 
 export const OrderPage = () => {
 
@@ -18,11 +21,16 @@ export const OrderPage = () => {
     const bids = useSelector<RootState, string[]>(state => state.cart.beverageIds);
     const fids = useSelector<RootState, string[]>(state => state.cart.foodIds);
     const orderState = useSelector<RootState, any>(state => state.cart.order);
-
+    const userHasCompletedOrder = useCheckout();
+    
     useEffect(() => {
+        console.log("Page render - ", userHasCompletedOrder)
+        if (userHasCompletedOrder){
+            dispatch(resetCheckoutState())
+            dispatch(emptyState())
+        }
         dispatch(getCurrentMenu())
-        // eslint-disable-next-line
-    }, []);
+    }, [dispatch, userHasCompletedOrder]);
 
     return (
         <React.Fragment>
