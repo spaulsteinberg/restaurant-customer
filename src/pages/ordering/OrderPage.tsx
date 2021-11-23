@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import OrderMenuTitle from './OrderMenuTitle';
+import OrderMenuTitle from '../../components/ordering/OrderMenuTitle';
 import './order-styles.scss';
-import ResponsiveContainer from '../utility/ResponsiveContainer';
+import ResponsiveContainer from '../../components/utility/ResponsiveContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentMenu } from '../../redux/menu/menuActions';
-import LoadingSpinner from '../utility/LoadingSpinner';
+import LoadingSpinner from '../../components/utility/LoadingSpinner';
 import { RootState } from '../../redux/store';
 import { IMenuState } from '../../redux/menu/menuReducer';
-import { Alert } from 'react-bootstrap';
-import OrderSection from './OrderSection';
+import Alert from 'react-bootstrap/Alert';
+import OrderSection from '../../components/ordering/OrderSection';
 import useCheckout from '../../hooks/useCheckout';
 import { resetCheckoutState } from '../../redux/checkout/checkoutActions';
 import { emptyState } from '../../redux/cart/cartActions';
@@ -24,7 +24,6 @@ export const OrderPage = () => {
     const userHasCompletedOrder = useCheckout();
     
     useEffect(() => {
-        console.log("Page render - ", userHasCompletedOrder)
         if (userHasCompletedOrder){
             dispatch(resetCheckoutState())
             dispatch(emptyState())

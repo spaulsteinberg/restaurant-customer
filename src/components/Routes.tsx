@@ -1,19 +1,17 @@
 import { Switch, Route } from 'react-router-dom'
-import About from './about/About'
-import ViewCart from './cart/ViewCart'
-import Home from './home/Home'
-import OrderPage from './ordering/OrderPage'
-import PageNotFound from './utility/PageNotFound'
+import CartPage from '../pages/cart/CartPage'
+import HomePage from '../pages/home/HomePage'
+import OrderPage from '../pages/ordering/OrderPage'
+import NotFoundPage from '../pages/not-found/NotFoundPage'
 
 const Routes = () => {
     return (
         <Switch>
-            <Route path="/" component={Home} exact/>
-            <Route path="/home" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/ordering" component={OrderPage} />
-            <Route path="/cart" component={ViewCart} exact/>
-            <Route path="*" component={PageNotFound} />
+            <Route path="/" component={HomePage} exact/>
+            <Route path="/home" component={HomePage} />
+            <Route path="/ordering" component={OrderPage} exact/>
+            <Route path="/cart" component={CartPage} exact/>
+            <Route path="*" component={NotFoundPage} />
         </Switch>
     )
 }

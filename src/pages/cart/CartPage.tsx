@@ -2,15 +2,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import './cart-styles.scss'
 import { ICartState } from "../../redux/cart/cartReducer"
-import NoCartItems from "./NoCartItems"
-import ShowCartItems from "./ShowCartItems"
+import NoCartItems from "../../components/cart/NoCartItems"
+import ShowCartItems from "../../components/cart/ShowCartItems"
 import useCheckout from "../../hooks/useCheckout"
 import { useEffect } from "react"
 import { emptyState } from "../../redux/cart/cartActions"
 
-type ViewCartProps = {}
+type CartPageProps = {}
 
-const ViewCart = (props:ViewCartProps) => {
+const CartPage = (props:CartPageProps) => {
     const cart = useSelector<RootState, ICartState>(state => state.cart)
     const userHasCompletedOrder = useCheckout();
     const dispatch = useDispatch();
@@ -29,4 +29,4 @@ const ViewCart = (props:ViewCartProps) => {
     )
 }
 
-export default ViewCart
+export default CartPage

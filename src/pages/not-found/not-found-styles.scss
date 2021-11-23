@@ -1,0 +1,11 @@
+@import '../../styles/abstracts';
+
+
+.link-container {
+    display: flex;
+    justify-content: center;
+}
+.link-lists {
+    @include create-flex-container(100%);
+    text-align: left;
+}

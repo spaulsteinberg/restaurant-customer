@@ -22,7 +22,6 @@ const NavigationBar:FC = () => {
           <Nav className="me-auto">
           { !wideView ? <NavLink to="/home" className="navigation-link">{contextTitlePlaceholder}</NavLink> : null}
             <NavLink to="/home" className="navigation-link">Home</NavLink>
-            <NavLink to="/about" className="navigation-link">About</NavLink>
             <NavLink to="/ordering" className="navigation-link">Order Now</NavLink>
           </Nav>
           <Nav className="cart-nav">
