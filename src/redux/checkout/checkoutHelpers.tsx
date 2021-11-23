@@ -41,7 +41,7 @@ const denormalizeOrder = (cart:ICartState) => {
 
 const extractFoodArray = (ids:string[], returnArray:any[], sourceArray:any) => {
     for (const id of ids) {
-        const {item, description, type, price, ...rest} = sourceArray[id]; // TODO- not working
+        const {item, description, type, price, ...rest} = sourceArray[id];
         const editedObj = {...rest, main: item, price: parseFloat(price)}
         returnArray.push(editedObj);
     }

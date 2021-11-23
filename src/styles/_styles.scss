@@ -15,6 +15,14 @@
     line-height: .7rem;
 }
 
+.full-width-container {
+    @include create-flex-container(100%);
+}
+
+.centered-text {
+    text-align: $TEXT-CENTERED;
+}
+
 .noshow-div {
     @include gray-div(250px);
 }

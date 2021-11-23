@@ -1,7 +1,10 @@
 import Modal from "react-bootstrap/Modal"
 import {useElements, useStripe} from '@stripe/react-stripe-js';
-import CheckoutForm from "./CheckoutForm";
+import CheckoutModalHeader from "./CheckoutModalHeader"
 import './checkout-styles.scss'
+import CheckoutModalBody from "./CheckoutModalBody";
+import CheckoutModalCompletionFooter from "./CheckoutModalCompletionFooter";
+import { useHistory } from "react-router-dom";
 
 type CheckoutModalProps = {
     show:boolean,
@@ -13,15 +16,21 @@ const CheckoutModal = ({show, amount, hasCompletedOrder, handleCancel}:CheckoutM
 
     const stripe = useStripe();
     const elements = useElements();
+    const history = useHistory();
+
+    const completedOrderHeader = "Thank you for your order! Here is your receipt:";
+    const inProgressOrderHeader = "Please enter you payment information:";
+
+    const handleOnCreateNewOrderClick = () => {
+        // TODO - clear state here
+        history.push("/ordering");
+    }
 
     return (
         <Modal show={show} onHide={handleCancel} backdrop={hasCompletedOrder ? "static" : true}>
-            <Modal.Header closeButton>
-                <Modal.Title>Please enter you payment information:</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <CheckoutForm stripe={stripe} elements={elements} amount={amount}/>
-            </Modal.Body>
+            <CheckoutModalHeader title={ hasCompletedOrder ? completedOrderHeader : inProgressOrderHeader } orderComplete={hasCompletedOrder} />
+            <CheckoutModalBody stripe={stripe} elements={elements} amount={amount} orderComplete={hasCompletedOrder} />
+            { hasCompletedOrder && <CheckoutModalCompletionFooter handleClick={handleOnCreateNewOrderClick}/>}
         </Modal>
     )
 }
