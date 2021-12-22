@@ -28,6 +28,13 @@
     }
 }
 
+.tabs-row {
+    @include flex-row;
+    margin-bottom: 2rem;
+    justify-content: center;
+    .nav-link { color: white;}
+}
+
 .item-container {
     @include flex-column;
     justify-content: space-around;
@@ -56,6 +63,9 @@
                 width: 100%;
             }
         }
+    }
+    .tab-content {
+        width: 100%
     }
 }
 

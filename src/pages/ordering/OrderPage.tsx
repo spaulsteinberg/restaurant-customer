@@ -8,10 +8,10 @@ import LoadingSpinner from '../../components/utility/LoadingSpinner';
 import { RootState } from '../../redux/store';
 import { IMenuState } from '../../redux/menu/menuReducer';
 import Alert from 'react-bootstrap/Alert';
-import OrderSection from '../../components/ordering/OrderSection';
 import useCheckout from '../../hooks/useCheckout';
 import { resetCheckoutState } from '../../redux/checkout/checkoutActions';
 import { emptyState } from '../../redux/cart/cartActions';
+import OrderingDisplay from '../../components/ordering/OrderingDisplay';
 
 export const OrderPage = () => {
 
@@ -39,17 +39,12 @@ export const OrderPage = () => {
                     <React.Fragment>
                         <OrderMenuTitle title={menuState.data.name} />
                         <ResponsiveContainer>
-                                {
-                                    menuState.data.menus
-                                        .map(section =>
-                                            <OrderSection
-                                                key={section.menuName}
-                                                section={section}
-                                                selections={existingSelections && existingSelections.length > 0 ? orderState : null}
-                                                bids={bids}
-                                                fids={fids}
-                                            />)
-                                }
+                            <OrderingDisplay 
+                                menus={menuState.data.menus} 
+                                existingSelections={existingSelections} 
+                                orderState={orderState}
+                                bids={bids}
+                                fids={fids} />
                         </ResponsiveContainer>
                     </React.Fragment>
                 : menuState.error ? <Alert variant="danger" className="error-alert">{menuState.error}</Alert>

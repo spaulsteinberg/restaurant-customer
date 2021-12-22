@@ -100,7 +100,6 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                 handleBlur,
                 handleSubmit,
                 isSubmitting,
-                /* and other goodies */
             }) => (
                 <Form onSubmit={handleSubmit}>
                     <CheckoutFormItem
