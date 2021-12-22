@@ -22,7 +22,3 @@
 .centered-text {
     text-align: $TEXT-CENTERED;
 }
-
-.noshow-div {
-    @include gray-div(250px);
-}

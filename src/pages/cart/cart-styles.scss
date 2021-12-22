@@ -87,7 +87,7 @@
             width: 100%;
         }
     }
-    .cart-image-container {
+    .cart-image-container, .noshow-div-cart {
         @include four-over-three-aspect(262px);
     }
 }
@@ -101,7 +101,7 @@
             width: 100%;
         }
     }
-    .cart-image-container {
+    .cart-image-container, .noshow-div-cart {
         @include four-over-three-aspect(180px);
     }
 }
