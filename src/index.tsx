@@ -4,10 +4,19 @@ import './index.scss';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import { SessionProvider } from './contexts/SessionContext';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Elements stripe={stripePromise}>
+      <SessionProvider>
+        <App />
+      </SessionProvider>
+    </Elements>
   </React.StrictMode>,
   document.getElementById('root')
 );

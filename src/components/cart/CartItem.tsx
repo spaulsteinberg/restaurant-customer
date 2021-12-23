@@ -8,7 +8,6 @@ type CartItemProps = {
 
 const CartItem = ({data}:CartItemProps) => {
     const {wideView} = useWidth(500);
-    //<div className="cart-image-container" style={{backgroundImage: `url(${data.imageAddress})`}}></div> 
     return (
         <Card className="view-cart-item mb-4 mr-4" style={{flexDirection: wideView ? "row" : "column"}}>
             {
