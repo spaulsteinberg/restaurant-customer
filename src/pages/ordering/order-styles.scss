@@ -60,6 +60,8 @@
                 width: 75%;
             }
             .expanded-container {
+                min-height: 38px;
+                max-height: 38px;
                 margin: .5rem auto 1rem auto;
                 width: 100%;
             }
