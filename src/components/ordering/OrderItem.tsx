@@ -34,63 +34,52 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
     const [showAddItem, setShowAddItem] = useState<boolean>(isFocusedItem ? false : true);
     const [count, setCount] = useState<number>(isFocusedItem ? isFocusedItem.quantity : 1);
 
-    /*****Replace w useCookies hook or whatever 
-     * 
-     * TODO --- 
-     * 3) add some sort of loading indicator or disabled styles to order items
-     * 
-     * 
-    */
-
-    const handleShowAddItemClick = async () => {
-        console.log("sending....")
-        console.log(session?.sessionId)
+    const handleShowAddItemClick = () => {
         if (!session?.sessionId) return
 
-        try {
-            const {description, ...rest} = {...item}
-            let result = await addCartItem(session.sessionId, { ...rest, quantity: 1 }, true, isFoodType)
-            console.log(result)
+        const {description, ...rest} = {...item}
+        addCartItem(session.sessionId, { ...rest, quantity: 1 }, true, isFoodType)
+        .then(res => {
             dispatch(incrementCartCount());
             isFoodType ? dispatch(insertFood({ name: item.item, data: item, quantity: 1 })) : dispatch(insertBeverage({ name: item.item, data: item, quantity: 1 }))
             setShowAddItem(false)
-        } catch (err) {
+        })
+        .catch(err => {
             console.log("error ------", err)
-        }
+        })
     }
 
-    const handleIncrementClick = async () => {
+    const handleIncrementClick = () => {
         console.log("loading...")
 
         if (!session?.sessionId) return 
 
-        try {
-            const {description, ...rest} = {...item}
-            let result = await addCartItem(session.sessionId, { ...rest, quantity: count + 1 }, false, isFoodType)
-            console.log(result)
+        const {description, ...rest} = {...item}
+        addCartItem(session.sessionId, { ...rest, quantity: count + 1 }, false, isFoodType)
+        .then(res => {
             dispatch(incrementCartCount());
             isFoodType ? dispatch(insertFood({ name: item.item, data: item, quantity: count + 1 })) : dispatch(insertBeverage({ name: item.item, data: item, quantity: count + 1 }))
             setCount(prev => prev + 1);
-        } catch (err) {
+        })
+        .catch(err => {
             console.log("error ------", err)
-        }
-        console.log("finished...")
+        })
     }
 
-    const handleDecrementClick = async () => {
+    const handleDecrementClick = () => {
 
         if (!session?.sessionId) return
 
-        try {
-            const {description, ...rest} = {...item}
-            let result = await removeCartItem(session.sessionId, { ...rest, quantity: count - 1 }, count - 1 < 1, isFoodType)
-            console.log('[REMOVE]', result)
+        const {description, ...rest} = {...item}
+        removeCartItem(session.sessionId, { ...rest, quantity: count - 1 }, count - 1 < 1, isFoodType)
+        .then(res => {
             dispatch(decrementCartCount())
             isFoodType ? dispatch(removeFood({ name: item.item, data: item, quantity: count - 1 })) : dispatch(removeBeverage({ name: item.item, data: item, quantity: count - 1 }))
             count === 1 ? setShowAddItem(true) : setCount(prev => prev - 1)
-        } catch (err) {
+        })
+        .catch(err => {
             console.log("removal error...")
-        }
+        })
     }
 
     return (
