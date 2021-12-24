@@ -4,4 +4,5 @@ export interface ICartItem {
     price:string;
     quantity:number;
     type:string;
+    imageAddress:string;
 }

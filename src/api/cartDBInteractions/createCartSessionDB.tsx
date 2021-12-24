@@ -1,7 +1,7 @@
 import { db } from '../../firebase/firebase'
 
 const createCartSessionDB = (uniqueSessionId: string): Promise<void> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .set({
             complete: false,

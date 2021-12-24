@@ -15,7 +15,7 @@ const removeCartItem = (uniqueSessionId: string, item: ICartItem, countIsZero: b
 }
 
 const removeCartBeverage = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.drink.${item.item}`]: item,
@@ -34,7 +34,7 @@ const removeCartBeverageFromOrder = (uniqueSessionId: string, item: ICartItem, c
     const splicedBeverageIds = bevIds.filter(bid => bid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
     console.log(splicedIds, splicedBeverageIds)
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.drink.${item.item}`]: firebase.firestore.FieldValue.delete(),
@@ -52,7 +52,7 @@ const removeCartBeverageFromOrder = (uniqueSessionId: string, item: ICartItem, c
 }
 
 const removeCartFood = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.food.${item.item}`]: item,
@@ -71,7 +71,7 @@ const removeCartFoodFromOrder = (uniqueSessionId: string, item: ICartItem, count
     const splicedFoodIds = foodIds.filter(fid => fid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
     console.log(splicedIds, splicedFoodIds)
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.food.${item.item}`]: firebase.firestore.FieldValue.delete(),

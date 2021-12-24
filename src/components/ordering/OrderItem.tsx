@@ -48,7 +48,8 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
         if (!session?.sessionId) return
 
         try {
-            let result = await addCartItem(session.sessionId, { item: item.item, category: item.category, price: item.price, quantity: 1, type: item.type }, true, isFoodType)
+            const {description, ...rest} = {...item}
+            let result = await addCartItem(session.sessionId, { ...rest, quantity: 1 }, true, isFoodType)
             console.log(result)
             dispatch(incrementCartCount());
             isFoodType ? dispatch(insertFood({ name: item.item, data: item, quantity: 1 })) : dispatch(insertBeverage({ name: item.item, data: item, quantity: 1 }))
@@ -64,7 +65,8 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
         if (!session?.sessionId) return 
 
         try {
-            let result = await addCartItem(session.sessionId, { item: item.item, category: item.category, price: item.price, quantity: count + 1, type: item.type }, false, isFoodType)
+            const {description, ...rest} = {...item}
+            let result = await addCartItem(session.sessionId, { ...rest, quantity: count + 1 }, false, isFoodType)
             console.log(result)
             dispatch(incrementCartCount());
             isFoodType ? dispatch(insertFood({ name: item.item, data: item, quantity: count + 1 })) : dispatch(insertBeverage({ name: item.item, data: item, quantity: count + 1 }))
@@ -80,7 +82,8 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
         if (!session?.sessionId) return
 
         try {
-            let result = await removeCartItem(session.sessionId, { item: item.item, category: item.category, price: item.price, quantity: count - 1, type: item.type }, count - 1 < 1, isFoodType)
+            const {description, ...rest} = {...item}
+            let result = await removeCartItem(session.sessionId, { ...rest, quantity: count - 1 }, count - 1 < 1, isFoodType)
             console.log('[REMOVE]', result)
             dispatch(decrementCartCount())
             isFoodType ? dispatch(removeFood({ name: item.item, data: item, quantity: count - 1 })) : dispatch(removeBeverage({ name: item.item, data: item, quantity: count - 1 }))

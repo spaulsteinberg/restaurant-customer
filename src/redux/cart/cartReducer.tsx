@@ -1,5 +1,5 @@
 import { ICartAction } from "../../models/CartActionPayload";
-import { DEC_CART_COUNT, EMPTY_STATE, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, REM_BEVERAGE, REM_FOOD } from "./cartTypes";
+import { DEC_CART_COUNT, EMPTY_STATE, INC_CART_COUNT, INS_BEVERAGE, INS_FOOD, LOAD_INITIAL_STATE, LOAD_INITIAL_STATE_ERROR, LOAD_INITIAL_STATE_SUCCESS, REM_BEVERAGE, REM_FOOD } from "./cartTypes";
 
 
 export interface ICartState {
@@ -8,7 +8,8 @@ export interface ICartState {
     cartValue:number;
     foodIds: string[];
     beverageIds:string[];
-    allIds:string[]
+    allIds:string[],
+    loading?:boolean
 }
 
 const initialState:ICartState = {
@@ -17,7 +18,8 @@ const initialState:ICartState = {
     cartValue:0,
     foodIds: [],
     beverageIds: [],
-    allIds: []
+    allIds: [],
+    loading: true
 }
 
 const insertItem = (array:string[], key:string):string[] => [...array, key];
@@ -125,6 +127,17 @@ const cartReducer = (state = initialState, action:ICartAction) => {
 
             delete _stateCopy.order.drink[action.payload.name];
             return _stateCopy;
+        case LOAD_INITIAL_STATE:
+            return {...state, loading: true}
+        case LOAD_INITIAL_STATE_SUCCESS:
+            console.log(action.payload)
+            return {
+                ...state,
+                ...action.payload,
+                loading: false
+            }
+        case LOAD_INITIAL_STATE_ERROR:
+            return {...initialState, loading: false};
         case EMPTY_STATE:
             return initialState;
         default:

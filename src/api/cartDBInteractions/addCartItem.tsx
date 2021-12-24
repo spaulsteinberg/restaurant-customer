@@ -14,11 +14,11 @@ const addCartItem = (uniqueSessionId: string, item: ICartItem, isNew: boolean, i
 }
 
 const addCartBeverage = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.drink.${item.item}`]: item,
-            [`cart.cartValue`]: oldValue + parseFloat(item.price),
+            [`cart.cartValue`]: parseFloat((oldValue + parseFloat(item.price)).toFixed(2)),
             [`cart.count`]: count + 1
         })
         .then((res: any) => {
@@ -31,13 +31,13 @@ const addCartBeverage = (uniqueSessionId: string, item: ICartItem, count: number
 }
 
 const addNewCartBeverage = (uniqueSessionId: string, item: ICartItem, bevIds: string[], allIds: string[], count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.drink.${item.item}`]: item,
             [`cart.allIds`]: [...allIds, item.item],
             [`cart.beverageIds`]: [...bevIds, item.item],
-            [`cart.cartValue`]: oldValue + parseFloat(item.price),
+            [`cart.cartValue`]: parseFloat((oldValue + parseFloat(item.price)).toFixed(2)),
             [`cart.count`]: count + 1
         })
         .then(res => {
@@ -49,11 +49,11 @@ const addNewCartBeverage = (uniqueSessionId: string, item: ICartItem, bevIds: st
 }
 
 const addCartFood = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.food.${item.item}`]: item,
-            [`cart.cartValue`]: oldValue + parseFloat(item.price),
+            [`cart.cartValue`]: parseFloat((oldValue + parseFloat(item.price)).toFixed(2)),
             [`cart.count`]: count + 1
         })
         .then((res: any) => {
@@ -66,13 +66,13 @@ const addCartFood = (uniqueSessionId: string, item: ICartItem, count: number, ol
 }
 
 const addNewCartFood = (uniqueSessionId: string, item: ICartItem, foodIds: string[], allIds: string[], count: number, oldValue: number): Promise<string> => {
-    return db.collection("cart")
+    return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
             [`cart.order.food.${item.item}`]: item,
             [`cart.allIds`]: [...allIds, item.item],
             [`cart.foodIds`]: [...foodIds, item.item],
-            [`cart.cartValue`]: oldValue + parseFloat(item.price),
+            [`cart.cartValue`]: parseFloat((oldValue + parseFloat(item.price)).toFixed(2)),
             [`cart.count`]: count + 1
         })
         .then((res: any) => {

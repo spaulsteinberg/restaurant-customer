@@ -21,8 +21,7 @@ const CartItemBody = ({ data }: CartItemBodyProps) => {
 
     const processCartAddition = () => {
         if (!session?.sessionId) return;
-
-        addCartItem(session.sessionId, { item: data.item, category: data.category, price: data.price, quantity: quantity + 1, type: data.type }, false, isFoodItem)
+        addCartItem(session.sessionId, { item: data.item, category: data.category, price: data.price, quantity: quantity + 1, type: data.type, imageAddress: data.imageAddress }, false, isFoodItem)
             .then(res => {
                 dispatch(incrementCartCount());
                 isFoodItem ? dispatch(insertFood({ name: data.item, data: data, quantity: quantity + 1 })) : dispatch(insertBeverage({ name: data.item, data: data, quantity: quantity + 1 }))
@@ -33,7 +32,7 @@ const CartItemBody = ({ data }: CartItemBodyProps) => {
 
     const processCartSubtraction = () => {
         if (!session?.sessionId) return;
-        removeCartItem(session.sessionId, { item: data.item, category: data.category, price: data.price, quantity: quantity - 1, type: data.type}, quantity - 1 < 1, isFoodItem)
+        removeCartItem(session.sessionId, { item: data.item, category: data.category, price: data.price, quantity: quantity - 1, type: data.type, imageAddress: data.imageAddress}, quantity - 1 < 1, isFoodItem)
         .then(res => {
             setQuantity(q => q - 1);
             dispatch(decrementCartCount());
