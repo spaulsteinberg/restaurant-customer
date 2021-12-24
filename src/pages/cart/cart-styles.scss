@@ -35,6 +35,9 @@
     width: 100%;
 }
 
+.loading-req-p { padding-top: 6px }
+.error-req-p { padding-top: 2px }
+
 .cancel-checkout-button-container {
     @include flex-row;
     margin-top: 1rem;

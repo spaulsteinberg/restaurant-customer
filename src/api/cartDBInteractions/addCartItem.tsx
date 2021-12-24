@@ -4,13 +4,21 @@ import store from '../../redux/store'
 
 // pass in sessionId, item to set, the ids for food or beverage, all the ids, is a new object, isFood as a flag
 const addCartItem = (uniqueSessionId: string, item: ICartItem, isNew: boolean, isFood: boolean): Promise<string> => {
-    const cartState = store.getState().cart;
-    if (isFood) {
-        return isNew ? addNewCartFood(uniqueSessionId, item, cartState.foodIds, cartState.allIds, cartState.count, cartState.cartValue)
-            : addCartFood(uniqueSessionId, item, cartState.count, cartState.cartValue)
+    try {
+        const cartState = store.getState().cart;
+
+        // this check protects against a non-existent address trying to be updated and causing a firestore error
+        if (!item.imageAddress) item.imageAddress = ""
+
+        if (isFood) {
+            return isNew ? addNewCartFood(uniqueSessionId, item, cartState.foodIds, cartState.allIds, cartState.count, cartState.cartValue)
+                : addCartFood(uniqueSessionId, item, cartState.count, cartState.cartValue)
+        }
+        return isNew ? addNewCartBeverage(uniqueSessionId, item, cartState.beverageIds, cartState.allIds, cartState.count, cartState.cartValue)
+            : addCartBeverage(uniqueSessionId, item, cartState.count, cartState.cartValue)
+    } catch (err) {
+        return Promise.reject(err)
     }
-    return isNew ? addNewCartBeverage(uniqueSessionId, item, cartState.beverageIds, cartState.allIds, cartState.count, cartState.cartValue)
-        : addCartBeverage(uniqueSessionId, item, cartState.count, cartState.cartValue)
 }
 
 const addCartBeverage = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {

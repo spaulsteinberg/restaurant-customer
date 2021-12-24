@@ -1,0 +1,1 @@
+export const INVALID_COOKIE_MSG = 'Invalid session ID. Try clearing your cookies.'

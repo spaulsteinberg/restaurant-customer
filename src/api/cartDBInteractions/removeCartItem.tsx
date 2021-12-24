@@ -5,13 +5,21 @@ import store from "../../redux/store";
 
 const removeCartItem = (uniqueSessionId: string, item: ICartItem, countIsZero: boolean, isFood: boolean): Promise<string> => {
     console.log(item, countIsZero, isFood)
-    const cartState = store.getState().cart;
-    if (isFood){
-        return countIsZero ? removeCartFoodFromOrder(uniqueSessionId, item, cartState.count, cartState.cartValue, cartState.foodIds, cartState.allIds)
-            : removeCartFood(uniqueSessionId, item, cartState.count, cartState.cartValue)
-    }
-    return countIsZero ? removeCartBeverageFromOrder(uniqueSessionId, item, cartState.count, cartState.cartValue, cartState.beverageIds, cartState.allIds)
+    try {
+        const cartState = store.getState().cart;
+
+        // this check protects against a non-existent address trying to be updated and causing a firestore error
+        if (!item.imageAddress) item.imageAddress = ""
+
+        if (isFood) {
+            return countIsZero ? removeCartFoodFromOrder(uniqueSessionId, item, cartState.count, cartState.cartValue, cartState.foodIds, cartState.allIds)
+                : removeCartFood(uniqueSessionId, item, cartState.count, cartState.cartValue)
+        }
+        return countIsZero ? removeCartBeverageFromOrder(uniqueSessionId, item, cartState.count, cartState.cartValue, cartState.beverageIds, cartState.allIds)
             : removeCartBeverage(uniqueSessionId, item, cartState.count, cartState.cartValue)
+    } catch (err) {
+        return Promise.reject(err)
+    }
 }
 
 const removeCartBeverage = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number): Promise<string> => {
@@ -30,7 +38,7 @@ const removeCartBeverage = (uniqueSessionId: string, item: ICartItem, count: num
         })
 }
 
-const removeCartBeverageFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, bevIds:string[], allIds:string[]): Promise<string> => {
+const removeCartBeverageFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, bevIds: string[], allIds: string[]): Promise<string> => {
     const splicedBeverageIds = bevIds.filter(bid => bid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
     console.log(splicedIds, splicedBeverageIds)
@@ -67,7 +75,7 @@ const removeCartFood = (uniqueSessionId: string, item: ICartItem, count: number,
         })
 }
 
-const removeCartFoodFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, foodIds:string[], allIds:string[]): Promise<string> => {
+const removeCartFoodFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, foodIds: string[], allIds: string[]): Promise<string> => {
     const splicedFoodIds = foodIds.filter(fid => fid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
     console.log(splicedIds, splicedFoodIds)

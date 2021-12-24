@@ -6,8 +6,9 @@ import { FOOD_TYPE } from '../../constants/keys';
 import { IItems } from '../../models/firebaseMenuResponse';
 import { decrementCartCount, incrementCartCount, insertBeverage, insertFood, removeBeverage, removeFood } from '../../redux/cart/cartActions';
 import OrderItemButtons from './OrderItemButtons';
-import OrderItemInfoCard from './OrderItemCardInfo';
+import OrderItemInfoCard from './OrderItemInfoCard';
 import { useSession } from '../../contexts/SessionContext';
+import { INVALID_COOKIE_MSG } from '../../constants/messages';
 
 type OrderItemProps = {
     item: IItems;
@@ -29,7 +30,6 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
         isFocusedItem = isFood ? selectFood(item.item, selections) : selectBeverage(item.item, selections);
     }
 
-    const invalidCookieMessage = 'Invalid session ID. Try clearing your cookies.'
     const dbRequestFailureMessage = 'Could not save item. Please try again.'
 
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
 
     const handleShowAddItemClick = () => {
 
-        if (!session?.sessionId) return setSubmitState({loading: false, error: invalidCookieMessage, loadType: -1 })
+        if (!session?.sessionId) return setSubmitState({loading: false, error: INVALID_COOKIE_MSG, loadType: -1 })
 
         setSubmitState({loading: true, error: '', loadType: 1})
         const {description, ...rest} = {...item}
@@ -60,7 +60,7 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
 
     const handleIncrementClick = () => {
 
-        if (!session?.sessionId) return setSubmitState({loading: false, error: invalidCookieMessage, loadType: -1})
+        if (!session?.sessionId) return setSubmitState({loading: false, error: INVALID_COOKIE_MSG, loadType: -1})
 
         setSubmitState({loading: true, error: '', loadType: 1})
         const {description, ...rest} = {...item}
@@ -78,7 +78,7 @@ const OrderItem = ({ item, selections, bids, fids }: OrderItemProps) => {
     }
 
     const handleDecrementClick = () => {
-        if (!session?.sessionId) return setSubmitState({loading: false, error: invalidCookieMessage, loadType: -1})
+        if (!session?.sessionId) return setSubmitState({loading: false, error: INVALID_COOKIE_MSG, loadType: -1})
         
         setSubmitState({loading: true, error: '', loadType: 0})
         const {description, ...rest} = {...item}
