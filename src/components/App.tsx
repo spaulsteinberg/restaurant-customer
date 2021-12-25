@@ -2,30 +2,26 @@ import { useEffect } from 'react';
 import '../App.scss';
 import { BrowserRouter as Router } from 'react-router-dom'
 import Root from './Root';
-import ErrorBoundary from './utility/ErrorBoundary';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
+import { useSelector } from 'react-redux';
+import  { RootState } from '../redux/store';
 import { ISessionContext, useSession } from '../contexts/SessionContext';
 
 const App = () => {
   const { sessionId, setOrFetchSession } = useSession() as ISessionContext
-  console.log('[APP]', sessionId)
+  const complete = useSelector<RootState, boolean>(state => state.checkout.hasCompletedOrder)
+  console.log('[APP]', sessionId, complete)
 
   useEffect(() => {
-    if (!sessionId) setOrFetchSession()
+    if (!sessionId && !complete) setOrFetchSession()
 
-  }, [sessionId, setOrFetchSession])
+  }, [sessionId, complete, setOrFetchSession])
 
   return (
-    <ErrorBoundary>
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Root sessionId={sessionId} />
-          </div>
-        </Router>
-      </Provider>
-    </ErrorBoundary>
+    <Router>
+      <div className="App">
+        <Root sessionId={sessionId} />
+      </div>
+    </Router>
   );
 }
 

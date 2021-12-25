@@ -13,21 +13,14 @@ import { checkForCurrentMenu } from '../../firebase/api';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setCheckoutLoading, setCompletedStatus } from '../../redux/checkout/checkoutActions';
+import { ISessionContext, useSession } from '../../contexts/SessionContext';
+import destroySessionDB from '../../api/cartDBInteractions/destroyCartSessionDB';
 
 type CheckoutFormProps = {
     stripe:Stripe|null;
     elements:StripeElements|null;
     amount:string;
 }
-/*
-if (session.sessionId && orderFinished) {
-            console.log("triggered")
-            session.destroySession();
-            destroySessionDB(session.sessionId)
-            .then(() => console.log("success"))
-            .catch(err => console.log(err))
-        }
-*/
 
 const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
     const dispatch = useDispatch()
@@ -35,6 +28,16 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
     const [cardComplete, setCardComplete] = useState<boolean>(false);
     const [cardError, setCardError] = useState<string>("");
     const history = useHistory();
+    const { sessionId, destroySession } = useSession() as ISessionContext;
+
+    const destoryUserSession = ():void => {
+        if (sessionId) {
+            console.log("triggered")
+            destroySessionDB(sessionId)
+            .then(() => destroySession())
+            .catch(err => console.log(err))
+        }
+    }
 
     const handleSubmitOrder = async (first:string, last:string, email:string, token:string, ccLast:string|undefined) => {
         setMessage({message: "Creating Order...", isError: false})
@@ -49,6 +52,7 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                             .then(() => {
                                 setMessage({ message: "Complete!", isError: false })
                                 dispatch(setCompletedStatus({status: true, last4: ccLast, receipt: createdOrder.data.reference, createdAt: createdOrder.data.createdAt}))
+                                destoryUserSession()
                             })
                             .catch(() => {
                                 setMessage({ message: "An error occurred processing your payment.", isError: true })
@@ -61,7 +65,10 @@ const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
                     })
                 } else {
                     setMessage({message: `Your menu has expired. Routing back to main menu...`, isError: true})
+                    console.log("old menu!")
+                    destoryUserSession()
                     setTimeout(() => {
+                        dispatch(setCompletedStatus({status: true, last4: '', receipt: '', createdAt: ''}))
                         history.push('/ordering')
                     }, 2500)
                 }

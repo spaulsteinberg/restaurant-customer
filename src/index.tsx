@@ -7,16 +7,23 @@ import reportWebVitals from './reportWebVitals';
 import { SessionProvider } from './contexts/SessionContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import ErrorBoundary from './components/utility/ErrorBoundary';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Elements stripe={stripePromise}>
-      <SessionProvider>
-        <App />
-      </SessionProvider>
-    </Elements>
+    <ErrorBoundary>
+      <Elements stripe={stripePromise}>
+        <Provider store={store}>
+          <SessionProvider>
+            <App />
+          </SessionProvider>
+        </Provider>
+      </Elements>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 );

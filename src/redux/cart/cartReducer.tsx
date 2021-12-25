@@ -138,7 +138,7 @@ const cartReducer = (state = initialState, action:ICartAction) => {
         case LOAD_INITIAL_STATE_ERROR:
             return {...initialState, loading: false};
         case EMPTY_STATE:
-            return initialState;
+            return {...initialState, loading: false};
         default:
             return state;
     }
