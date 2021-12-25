@@ -15,6 +15,7 @@ const Root = ({sessionId}: RootProps) => {
     const cartLoading = useSelector<RootState, any>(state => state.cart?.loading);
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log("[ROOT USEFFECT]", sessionId)
         if (sessionId) dispatch(loadInitalStateFromDB(sessionId))
     }, [dispatch, sessionId])
     // TODO -- incorporate redux initial load

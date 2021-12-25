@@ -130,7 +130,6 @@ const cartReducer = (state = initialState, action:ICartAction) => {
         case LOAD_INITIAL_STATE:
             return {...state, loading: true}
         case LOAD_INITIAL_STATE_SUCCESS:
-            console.log(action.payload)
             return {
                 ...state,
                 ...action.payload,

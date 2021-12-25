@@ -3,12 +3,13 @@ import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { createCartSessionDB } from "../api/index";
 
- interface ISessionContext {
+export interface ISessionContext {
     sessionId:string|undefined;
     loading:boolean;
     setOrFetchSession: () => Promise<string|undefined>;
     createSession: () => Promise<string|undefined>;
     getSession: () => string|undefined;
+    destroySession: () => void;
 }
 
 type SessionProps = { children?: React.ReactNode}
@@ -20,9 +21,9 @@ export const useSession = () => useContext(SessionContext)
 export const SessionProvider = ({ children }: SessionProps) => {
     const [sessionId, setSessionId] = useState<string | undefined>();
     const [loading, setLoading] = useState<boolean>(false)
+    
 
     const setOrFetchSession = async ():Promise<string | undefined> => {
-        setLoading(true)
         let cookie = Cookies.get(process.env.REACT_APP_SESSION_KEY!)
         if (cookie) {
             console.log("cookie exists")
@@ -30,6 +31,7 @@ export const SessionProvider = ({ children }: SessionProps) => {
             setLoading(false)
             return Promise.resolve(cookie)
         } else {
+            setLoading(true)
             console.log("creating...")
             try {
                 let _sessionId = await createSession()
@@ -64,8 +66,17 @@ export const SessionProvider = ({ children }: SessionProps) => {
         createSession().then(sessionId => sessionId).catch(err => undefined)
     }
 
+    // unless the user messed with storage (where there would be a new cart created anyways), cookie will always be defined
+    const destroySession = ():void  => {
+        const cookie = Cookies.get(process.env.REACT_APP_SESSION_KEY!)
+        if (cookie) {
+            Cookies.remove(process.env.REACT_APP_SESSION_KEY!)
+            setSessionId(undefined)
+        }
+    }
+
     const value = {
-        sessionId, loading, setOrFetchSession, createSession, getSession
+        sessionId, loading, setOrFetchSession, createSession, getSession, destroySession
     }
 
     return (

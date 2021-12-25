@@ -51,3 +51,10 @@
     max-width: calc(#{$height} * 4 / 3);
     min-width: calc(#{$height} * 4 / 3);
 }
+
+@mixin card-footer-box($width) {
+    min-height: 38px;
+    max-height: 38px;
+    margin: .5rem auto 1rem auto;
+    width: $width;
+}

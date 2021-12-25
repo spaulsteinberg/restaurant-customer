@@ -56,14 +56,10 @@
             width: 10rem;
             color: $CARD-TEXT-COLOR;
             .button-container {
-                margin: .5rem auto 1rem auto;
-                width: 75%;
+                @include card-footer-box(75%);
             }
             .expanded-container {
-                min-height: 38px;
-                max-height: 38px;
-                margin: .5rem auto 1rem auto;
-                width: 100%;
+                @include card-footer-box(100%);
             }
 
             .order-request-error {

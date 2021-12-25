@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState} from 'react';
 import Form from "react-bootstrap/Form";
 import CheckoutPaymentButton from "./CheckoutPaymentButton";
 import CheckoutFormItem from "./CheckoutFormItem";
@@ -19,6 +19,15 @@ type CheckoutFormProps = {
     elements:StripeElements|null;
     amount:string;
 }
+/*
+if (session.sessionId && orderFinished) {
+            console.log("triggered")
+            session.destroySession();
+            destroySessionDB(session.sessionId)
+            .then(() => console.log("success"))
+            .catch(err => console.log(err))
+        }
+*/
 
 const CheckoutForm = ({stripe, elements, amount}: CheckoutFormProps) => {
     const dispatch = useDispatch()

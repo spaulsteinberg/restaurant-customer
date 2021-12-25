@@ -26,6 +26,13 @@ const CheckoutModal = ({show, amount, hasCompletedOrder, handleCancel}:CheckoutM
         history.push("/ordering");
     }
 
+    /*
+    TODO:
+        2) delete cart cookie identifier. on new order click, clear the redux state as well
+        3) if a user refreshes, a new cookie should be requested (already written in useCookies hook in app)
+        4) old menu destroy cookues and redirect
+    */
+
     return (
         <Modal show={show} onHide={handleCancel} backdrop={hasCompletedOrder ? "static" : true}>
             <CheckoutModalHeader title={ hasCompletedOrder ? completedOrderHeader : inProgressOrderHeader } orderComplete={hasCompletedOrder} />

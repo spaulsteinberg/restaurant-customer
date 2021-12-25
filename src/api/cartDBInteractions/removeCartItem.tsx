@@ -4,7 +4,6 @@ import { ICartItem } from "../../models/ICartItem";
 import store from "../../redux/store";
 
 const removeCartItem = (uniqueSessionId: string, item: ICartItem, countIsZero: boolean, isFood: boolean): Promise<string> => {
-    console.log(item, countIsZero, isFood)
     try {
         const cartState = store.getState().cart;
 
@@ -41,7 +40,6 @@ const removeCartBeverage = (uniqueSessionId: string, item: ICartItem, count: num
 const removeCartBeverageFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, bevIds: string[], allIds: string[]): Promise<string> => {
     const splicedBeverageIds = bevIds.filter(bid => bid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
-    console.log(splicedIds, splicedBeverageIds)
     return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
@@ -78,7 +76,6 @@ const removeCartFood = (uniqueSessionId: string, item: ICartItem, count: number,
 const removeCartFoodFromOrder = (uniqueSessionId: string, item: ICartItem, count: number, oldValue: number, foodIds: string[], allIds: string[]): Promise<string> => {
     const splicedFoodIds = foodIds.filter(fid => fid !== item.item);
     const splicedIds = allIds.filter(id => id !== item.item)
-    console.log(splicedIds, splicedFoodIds)
     return db.collection(process.env.REACT_APP_CART_DB_COLLECTION!)
         .doc(uniqueSessionId)
         .update({
