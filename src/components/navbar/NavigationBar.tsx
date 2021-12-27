@@ -4,23 +4,25 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useSelector } from 'react-redux';
 import {NavLink} from 'react-router-dom'
+import { IHomeContext, useHomeContext } from '../../contexts/HomeContext';
 import useWidth from '../../hooks/useWidth';
 import { RootState } from '../../redux/store';
 import Cart from './navbar-cart/Cart';
+import NavBarTitleItem from './NavBarTitleItem';
 import './navigation-styles.scss';
 
 const NavigationBar:FC = () => {
   const {wideView} = useWidth(400);
-  const contextTitlePlaceholder = "Restaurant Name Here"
+  const homeContext = useHomeContext() as IHomeContext;
   const cartItemCount = useSelector<RootState, number>(state => state.cart['count'])
   return (
     <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
       <Container fluid>
-        { wideView ? <Navbar.Brand>{contextTitlePlaceholder}</Navbar.Brand> : null }
+        <NavBarTitleItem wideView={wideView} title={homeContext.value?.name.display} />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-          { !wideView ? <NavLink to="/home" className="navigation-link">{contextTitlePlaceholder}</NavLink> : null}
+          { !wideView ? <NavLink to="/home" className="navigation-link">{homeContext.value?.name.display ? homeContext.value?.name.display : <div className="title-loading-span"></div> }</NavLink> : null}
             <NavLink to="/home" className="navigation-link">Home</NavLink>
             <NavLink to="/ordering" className="navigation-link">Order Now</NavLink>
           </Nav>
