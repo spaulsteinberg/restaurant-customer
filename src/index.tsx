@@ -10,6 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import ErrorBoundary from './components/utility/ErrorBoundary';
+import { HomeProvider } from './contexts/HomeContext';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
@@ -19,7 +20,9 @@ ReactDOM.render(
       <Elements stripe={stripePromise}>
         <Provider store={store}>
           <SessionProvider>
-            <App />
+            <HomeProvider>
+              <App />
+            </HomeProvider>
           </SessionProvider>
         </Provider>
       </Elements>
