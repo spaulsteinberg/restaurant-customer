@@ -36,6 +36,15 @@
     }
 }
 
+.route-button-container {
+    @include flex-row;
+    justify-content: center;
+    width: 100%;
+    @media screen and (max-width: 300px) {
+        width: 80%;
+    }
+}
+
 /************* Built in styles needed ********************/
 .font-Arial { font-family: Arial, Helvetica, sans-serif;}
 .font-Tahoma { font-family: Tahoma, Verdana, sans-serif;}

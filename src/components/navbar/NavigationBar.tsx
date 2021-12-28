@@ -8,7 +8,8 @@ import { IHomeContext, useHomeContext } from '../../contexts/HomeContext';
 import useWidth from '../../hooks/useWidth';
 import { RootState } from '../../redux/store';
 import Cart from './navbar-cart/Cart';
-import NavBarTitleItem from './NavBarTitleItem';
+import NavbarRestNameBrand from './navbar-title/NavbarRestNameBrand'
+import NavbarRestNameLink from './navbar-title/NavbarRestNameLink';
 import './navigation-styles.scss';
 
 const NavigationBar:FC = () => {
@@ -18,11 +19,11 @@ const NavigationBar:FC = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark">
       <Container fluid>
-        <NavBarTitleItem wideView={wideView} title={homeContext.value?.name.display} />
+        <NavbarRestNameBrand wideView={wideView} title={homeContext.value?.name.display} />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-          { !wideView ? <NavLink to="/home" className="navigation-link">{homeContext.value?.name.display ? homeContext.value?.name.display : <div className="title-loading-span"></div> }</NavLink> : null}
+            <NavbarRestNameLink wideView={wideView} title={homeContext.value?.name.display} />
             <NavLink to="/home" className="navigation-link">Home</NavLink>
             <NavLink to="/ordering" className="navigation-link">Order Now</NavLink>
           </Nav>
