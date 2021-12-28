@@ -58,3 +58,15 @@
     margin: .5rem auto 1rem auto;
     width: $width;
 }
+
+@mixin position-t-b-l-r($top: null,  $bottom: null, $left: null, $right: null) {
+    @if ($top != null) { top: $top }
+    @if ($bottom != null) { bottom: $bottom }
+    @if ($left != null) { left: $left }
+    @if ($right != null) { right: $right }
+}
+
+@mixin create-box-shadow($radius, $color) {
+    box-shadow: 0 0 $radius $color;
+    -moz-box-shadow: 0 0 $radius $color;
+}

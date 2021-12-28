@@ -15,12 +15,9 @@
 }
 
 #restaurant-name {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    @include flex-row;
+    @include position-t-b-l-r(8px, null, 0, null);
     position: absolute;
-    top: 8px;
-    left: 0;
     width: 100%;
     justify-content: center;
     align-items: flex-end;
@@ -30,8 +27,7 @@
     }
      @media screen and (max-width: 500px){
         position: static;
-        top: 0;
-        left: 0;
+        @include position-t-b-l-r(0, null, 0, null);
         margin: 1rem 0;
     }
 }
@@ -44,6 +40,27 @@
         width: 80%;
     }
 }
+
+.widescreen-button-container {
+    position: absolute;
+    top: 75%;
+}
+
+.pulsating-button {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        @include create-box-shadow(0, white);
+    }
+    70% {
+        @include create-box-shadow(20px, white);
+    }
+    100% {
+        @include create-box-shadow(0, white);
+    }
+  }
 
 /************* Built in styles needed ********************/
 .font-Arial { font-family: Arial, Helvetica, sans-serif;}
@@ -118,8 +135,7 @@
     }
     #restaurant-name {
         position: static;
-        top: 0;
-        left: 0;
+        @include position-t-b-l-r(0, null, 0, null);
         margin: 1rem 0;
     }
 }
