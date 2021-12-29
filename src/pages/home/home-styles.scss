@@ -1,5 +1,29 @@
 @import '../../styles/abstracts';
 
+.home-input-container {
+    @include flex-column;
+    text-align: start;
+    padding: 12px;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.home-description-display {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-flow: inherit;
+    flex: 0 0 60%;
+    margin-top: 1rem;
+    align-content: flex-start;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.home-links-input  {
+    word-break: break-all;
+ }
+
 .background-photo-container {
     background-color: darkgray;
     background-repeat: no-repeat;
@@ -143,7 +167,20 @@
 /****************** Controlled width queries *************************/
 @media  screen and (min-width: resolution("mobile")){
     .background-photo-container {
-        height: 100vh;
+        height: calc(100vh - 56px);
         justify-content: center;
+    }
+    .home-description-display {
+        margin-right: 3%;
+    }
+}
+
+@media screen and (min-width: resolution("tablet")) {
+    .home-input-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .home-links-input {
+        @include create-flex-container(30%);
     }
 }

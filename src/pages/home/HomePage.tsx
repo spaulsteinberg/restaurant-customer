@@ -1,4 +1,6 @@
 import DoubleArrowIcon from '../../components/home/DoubleArrowIcon';
+import HomeBodyContainer from '../../components/home/HomeBodyContainer';
+import HomeDescription from '../../components/home/HomeDescription';
 import HomePhotoBackground from '../../components/home/HomePhotoBackground';
 import HomeRouteButtons from '../../components/home/HomeRouteButtons';
 import HomeTitle from '../../components/home/HomeTitle'
@@ -21,6 +23,9 @@ const HomePage = () => {
                     <DoubleArrowIcon width={16} height={16} fill={"black"} handleDownscrollClick={() => window.scrollBy(0, 300)} />
                 }
             </HomePhotoBackground>
+            <HomeBodyContainer>
+                <HomeDescription description={home.value?.description} />
+            </HomeBodyContainer>
         </>
     )
 }
