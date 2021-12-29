@@ -1,6 +1,7 @@
 import DoubleArrowIcon from '../../components/home/DoubleArrowIcon';
 import HomeBodyContainer from '../../components/home/HomeBodyContainer';
 import HomeDescription from '../../components/home/HomeDescription';
+import HomeLinks from '../../components/home/HomeLinks';
 import HomePhotoBackground from '../../components/home/HomePhotoBackground';
 import HomeRouteButtons from '../../components/home/HomeRouteButtons';
 import HomeTitle from '../../components/home/HomeTitle'
@@ -25,6 +26,7 @@ const HomePage = () => {
             </HomePhotoBackground>
             <HomeBodyContainer>
                 <HomeDescription description={home.value?.description} />
+                <HomeLinks links={home.value?.links ? home.value?.links : []} />
             </HomeBodyContainer>
         </>
     )
