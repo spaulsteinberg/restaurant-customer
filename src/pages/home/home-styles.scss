@@ -20,9 +20,14 @@
     word-wrap: break-word;
 }
 
+.body-text { font-size: 16px; }
+
 .home-links-input {
     word-break: break-all;
     margin-top: .5rem;
+    a {
+        color: white;
+    }
  }
 
 .background-photo-container {
@@ -184,4 +189,9 @@
     .home-links-input {
         @include create-flex-container(30%);
     }
+    .body-text { font-size: 18px; }
+}
+
+@media screen and (min-width: resolution("laptop")){
+    .body-text { font-size: 20px; }
 }
