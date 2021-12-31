@@ -12,6 +12,7 @@ import useCheckout from '../../hooks/useCheckout';
 import { resetCheckoutState } from '../../redux/checkout/checkoutActions';
 import { emptyState } from '../../redux/cart/cartActions';
 import OrderingDisplay from '../../components/ordering/OrderingDisplay';
+import LoadingAlert from '../../components/utility/LoadingAlert';
 
 export const OrderPage = () => {
 
@@ -21,10 +22,11 @@ export const OrderPage = () => {
     const bids = useSelector<RootState, string[]>(state => state.cart.beverageIds);
     const fids = useSelector<RootState, string[]>(state => state.cart.foodIds);
     const orderState = useSelector<RootState, any>(state => state.cart.order);
+    const cartLoading = useSelector<RootState, boolean | undefined>(state => state.cart.loading)
     const userHasCompletedOrder = useCheckout();
-    
+
     useEffect(() => {
-        if (userHasCompletedOrder){
+        if (userHasCompletedOrder) {
             dispatch(resetCheckoutState())
             dispatch(emptyState())
         }
@@ -34,21 +36,22 @@ export const OrderPage = () => {
     return (
         <React.Fragment>
             {
-                menuState.loading ? <LoadingSpinner variant="warning" className="text-center mt-5">Loading...</LoadingSpinner>
-                : menuState.data && !menuState.error ? 
-                    <React.Fragment>
-                        <OrderMenuTitle title={menuState.data.name} />
-                        <ResponsiveContainer>
-                            <OrderingDisplay 
-                                menus={menuState.data.menus} 
-                                existingSelections={existingSelections} 
-                                orderState={orderState}
-                                bids={bids}
-                                fids={fids} />
-                        </ResponsiveContainer>
-                    </React.Fragment>
-                : menuState.error ? <Alert variant="danger" className="error-alert">{menuState.error}</Alert>
-                : null
+                cartLoading ? <LoadingAlert classTypes="loading-cart-from-server-spinner mt-4 mx-4 text-center" /> :
+                    menuState.loading ? <LoadingSpinner variant="warning" className="text-center mt-5">Loading...</LoadingSpinner>
+                        : menuState.data && !menuState.error ?
+                            <React.Fragment>
+                                <OrderMenuTitle title={menuState.data.name} />
+                                <ResponsiveContainer>
+                                    <OrderingDisplay
+                                        menus={menuState.data.menus}
+                                        existingSelections={existingSelections}
+                                        orderState={orderState}
+                                        bids={bids}
+                                        fids={fids} />
+                                </ResponsiveContainer>
+                            </React.Fragment>
+                            : menuState.error ? <Alert variant="danger" className="error-alert">{menuState.error}</Alert>
+                                : null
             }
         </React.Fragment>
     )

@@ -14,20 +14,27 @@ const HomePage = () => {
     const home = useHomeContext() as IHomeContext;
     const isMinHeight = useHeight(420)
     const isMinWidth = useWidth(500).wideView
+    console.log(home.value)
     return (
         <>
-            <HomePhotoBackground bgUrl={home.value?.bpAddress!}>
-                <HomeTitle name={home.value?.name!} />
-                <HomeRouteButtons buttons={home.value?.gotos!} />
-                {
-                    isMinHeight && isMinWidth &&
-                    <DoubleArrowIcon width={16} height={16} fill={"black"} handleDownscrollClick={() => window.scrollBy(0, 300)} />
-                }
-            </HomePhotoBackground>
-            <HomeBodyContainer>
-                <HomeDescription description={home.value?.description} />
-                <HomeLinks links={home.value?.links ? home.value?.links : []} />
-            </HomeBodyContainer>
+            {
+                home.value ?
+                    <>
+                        <HomePhotoBackground bgUrl={home.value?.bpAddress!}>
+                            <HomeTitle name={home.value?.name!} />
+                            <HomeRouteButtons buttons={home.value?.gotos!} />
+                            {
+                                isMinHeight && isMinWidth &&
+                                <DoubleArrowIcon width={16} height={16} fill={"black"} handleDownscrollClick={() => window.scrollBy(0, 300)} />
+                            }
+                        </HomePhotoBackground>
+                        <HomeBodyContainer>
+                            <HomeDescription description={home.value?.description} />
+                            <HomeLinks links={home.value?.links ? home.value?.links : []} />
+                        </HomeBodyContainer>
+                    </>
+                : <HomePhotoBackground bgUrl=""> </HomePhotoBackground>
+        }
         </>
     )
 }
