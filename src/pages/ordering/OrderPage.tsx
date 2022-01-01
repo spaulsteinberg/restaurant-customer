@@ -24,8 +24,7 @@ export const OrderPage = () => {
     return (
         <React.Fragment>
             {
-                cartLoading ? <LoadingAlert classTypes="loading-cart-from-server-spinner mt-4 mx-4 text-center" /> :
-                <OrderingMenu />
+                cartLoading ? <LoadingAlert classTypes="loading-cart-from-server-spinner mt-4 mx-4 text-center" /> : <OrderingMenu />
             }
         </React.Fragment>
     )

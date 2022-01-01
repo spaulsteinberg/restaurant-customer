@@ -34,7 +34,6 @@ export const MenuProvider = (props:any) => {
                         const menu = snapshot.docs.map(doc => doc.data())[0]
                         setState({loading: false, value: menu, error: null})
                         if (sessionId) {
-                            console.log(ref.current, "vs", menu.name)
                             if (ref.current !== "" && ref.current !== menu.name){
                                 createCartSessionDB(sessionId)
                                 .then(res => alert(`${ref.current} menus expired. Please make new current selections.`))

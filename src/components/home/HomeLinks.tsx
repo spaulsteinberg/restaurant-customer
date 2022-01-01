@@ -1,19 +1,12 @@
 import ILink from "../../models/home/ILink"
+import ListFlexView from "./ListFlexView"
+import ListLinksView from "./ListLinksView"
 
 type HomeLinksProps = {
-    links: ILink[]
+    links: ILink[];
+    isTabletWidth:boolean;
 }
 
-const HomeLinks = ({ links }: HomeLinksProps) => {
-    return (
-        <div className="home-links-input">
-            <ul>
-                {
-                    links.map((link:ILink) => <li key={link.url} className="mb-2"><a href={link.url} target="_blank" rel="noreferrer">{link.display}</a></li>)
-                }
-            </ul>
-        </div>
-    )
-}
+const HomeLinks = ({ links, isTabletWidth }: HomeLinksProps) => isTabletWidth ? <ListLinksView links={links} /> : <ListFlexView links={links} />
 
 export default HomeLinks

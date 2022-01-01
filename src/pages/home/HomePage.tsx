@@ -14,11 +14,13 @@ const HomePage = () => {
     const home = useHomeContext() as IHomeContext;
     const isMinHeight = useHeight(420)
     const isMinWidth = useWidth(500).wideView
+    const isTabletWidth = useWidth(768).wideView
+
     return (
         <>
             {
                 home.value ?
-                    <>
+                    <div className="home-background">
                         <HomePhotoBackground bgUrl={home.value?.bpAddress!}>
                             <HomeTitle name={home.value?.name!} />
                             <HomeRouteButtons buttons={home.value?.gotos!} />
@@ -29,9 +31,9 @@ const HomePage = () => {
                         </HomePhotoBackground>
                         <HomeBodyContainer>
                             <HomeDescription description={home.value?.description} />
-                            <HomeLinks links={home.value?.links ? home.value?.links : []} />
+                            <HomeLinks links={home.value?.links ? home.value?.links : []} isTabletWidth={isTabletWidth} />
                         </HomeBodyContainer>
-                    </>
+                    </div>
                 : <HomePhotoBackground bgUrl=""> </HomePhotoBackground>
         }
         </>
