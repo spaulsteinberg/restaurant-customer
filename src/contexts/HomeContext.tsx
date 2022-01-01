@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
 import IHome from "../models/home/IHome";
 
@@ -15,19 +15,22 @@ export const useHomeContext = () => useContext(HomeContext)
 export const HomeProvider = (props: any) => {
     const [state, setState] = useState<any>({ loading: true, value: null })
 
-    useEffect(() => {
-        (async () => {
-            setState((prev:any) => { return { ...prev, loading: true } })
-            db.collection(process.env.REACT_APP_HOME_DB_COLLECTION!)
-                .doc(process.env.REACT_APP_HOME_DB_DOC)
-                .onSnapshot(doc => {
-                    if (doc.exists) {
-                        console.log(doc.data())
-                        setState({ loading: false, value: doc.data()})
-                    }
-                })
-        })()
+    const listenerCallback = useCallback(() => {
+        setState((prev:any) => { return { ...prev, loading: true } })
+        const unsubscribe = db.collection(process.env.REACT_APP_HOME_DB_COLLECTION!)
+            .doc(process.env.REACT_APP_HOME_DB_DOC)
+            .onSnapshot(doc => {
+                if (doc.exists) {
+                    setState({ loading: false, value: doc.data()})
+                }
+            })
+        return unsubscribe
     }, [])
+
+    useEffect(() => {
+        const unsubscribe = listenerCallback()
+        return () => unsubscribe()
+    }, [listenerCallback])
 
 
     return (

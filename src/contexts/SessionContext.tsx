@@ -26,7 +26,6 @@ export const SessionProvider = ({ children }: SessionProps) => {
     const setOrFetchSession = async ():Promise<string | undefined> => {
         let cookie = Cookies.get(process.env.REACT_APP_SESSION_KEY!)
         if (cookie) {
-            console.log("cookie exists")
             setSessionId(cookie)
             setLoading(false)
             return Promise.resolve(cookie)
@@ -62,7 +61,6 @@ export const SessionProvider = ({ children }: SessionProps) => {
     // return a session if exists, or else make a call to create one
     const getSession = ():string|undefined => {
         if (sessionId) return sessionId
-        console.log("creating cookie")
         createSession().then(sessionId => sessionId).catch(err => undefined)
     }
 

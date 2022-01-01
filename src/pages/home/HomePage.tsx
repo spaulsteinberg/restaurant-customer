@@ -14,7 +14,6 @@ const HomePage = () => {
     const home = useHomeContext() as IHomeContext;
     const isMinHeight = useHeight(420)
     const isMinWidth = useWidth(500).wideView
-    console.log(home.value)
     return (
         <>
             {

@@ -128,7 +128,6 @@ const cartReducer = (state = initialState, action:ICartAction) => {
             delete _stateCopy.order.drink[action.payload.name];
             return _stateCopy;
         case LOAD_INITIAL_STATE:
-            console.log("LOADING INITIAL CART")
             return {...state, loading: true}
         case LOAD_INITIAL_STATE_SUCCESS:
             return {

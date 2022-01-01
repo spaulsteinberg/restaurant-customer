@@ -15,9 +15,7 @@ const Root = ({sessionId}: RootProps) => {
     useEffect(() => {
         if (sessionId) dispatch(loadInitalStateFromDB(sessionId))
     }, [dispatch, sessionId])
-    // TODO -- incorporate redux initial load
-
-    console.log("[ROOT]", sessionId)
+    
     return (
         <Container fluid className="p-0">
             <NavigationBar />

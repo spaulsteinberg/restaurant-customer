@@ -11,6 +11,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import ErrorBoundary from './components/utility/ErrorBoundary';
 import { HomeProvider } from './contexts/HomeContext';
+import { MenuProvider } from './contexts/MenuContext';
+import { BrowserRouter as Router } from 'react-router-dom'
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!);
 
@@ -21,7 +24,11 @@ ReactDOM.render(
         <Provider store={store}>
           <SessionProvider>
             <HomeProvider>
-              <App />
+              <Router>
+                <MenuProvider>
+                  <App />
+                </MenuProvider>
+              </Router>
             </HomeProvider>
           </SessionProvider>
         </Provider>
