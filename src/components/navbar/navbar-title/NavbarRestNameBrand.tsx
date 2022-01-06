@@ -14,7 +14,7 @@ const NavbarRestNameBrand = ({ title, wideView }: NavbarRestNameBrandProps) => {
         <React.Fragment>
             {
                 wideView ?
-                    <Navbar.Brand onClick={handleBrandClick}>
+                    <Navbar.Brand onClick={handleBrandClick} className="name-title-cursor">
                         {title ? title : <div className="title-loading-span"></div>}
                     </Navbar.Brand>
                     : null

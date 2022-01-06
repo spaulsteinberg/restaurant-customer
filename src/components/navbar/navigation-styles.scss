@@ -15,7 +15,12 @@
     
     &:hover {
         background-color: orange;
+        cursor: pointer;
     }
+}
+
+.name-title-cursor {
+    &:hover { cursor: pointer;}
 }
 
 .cart-nav, .cart-count-sub, .nav-cart-container {

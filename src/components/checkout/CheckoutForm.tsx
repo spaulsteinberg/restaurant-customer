@@ -48,6 +48,7 @@ const CheckoutForm = ({ stripe, elements, amount }: CheckoutFormProps) => {
                         destoryUserSession()
                     })
                     .catch(() => {
+                        console.log("error")
                         setMessage({ message: "An error occurred processing your payment.", isError: true })
                     })
                     .finally(() => dispatch(setCheckoutLoading(false)))
