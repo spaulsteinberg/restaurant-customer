@@ -1,6 +1,6 @@
 # Restaurant Application Customer Interface
 
-[See the admin tool used to configure this application here](https://github.com/spaulsteinberg/restaurant-tool).
+[See the admin tool used to configure this application here](https://github.com/spaulsteinberg/restaurant-tool). This repo also contains important details about the project as a whole.
 
 ## Order Flow
 
