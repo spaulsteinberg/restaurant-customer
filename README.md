@@ -6,8 +6,15 @@
 
 Menus configured on the admin tool are displayed to the user on the Ordering page. A user can add or remove items to their cart. The configured Home page is also viewable on this site.
 
-![Desktop Ordering](img/Ordering-demo-desktop_2.gif)
-![Mobile Ordering](img/Ordering-demo-mobile.gif)
+**Dektop View**  
+
+![Desktop Ordering](img/Ordering-demo-desktop_2.gif)  
+
+
+**Mobile View**  
+
+![Mobile Ordering](img/Ordering-demo-mobile.gif)  
+
 
 ## Tools and Technology
 
