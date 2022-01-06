@@ -4,6 +4,6 @@
 
 ## Order Flow
 
-[Desktop Ordering](img/Ordering-demo-desktop)
+![Desktop Ordering](img/Ordering-demo-desktop.gif)
 
 Menus configured on the admin tool are displayed to the user on the Ordering page. A user can add or remove items to their cart.
